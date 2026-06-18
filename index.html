@@ -82,9 +82,13 @@ img{display:block}
 .tree-obj.expanded{max-height:300px;opacity:1}
 .tree-l1{height:auto;min-height:28px;padding:4px 8px;align-items:center;background:var(--side-tree1);border-radius:var(--r) var(--r) 0 0;margin-bottom:0}
 .tree-l1.collapsed{border-radius:var(--r)}
-.tree-l2{height:auto;min-height:28px;padding:4px 8px;align-items:center;background:var(--side-tree2);border-radius:0;margin-bottom:0}
+.tree-l2{height:auto;min-height:28px;padding:4px 8px 4px 30px;align-items:center;background:var(--side-tree2);border-radius:0;margin-bottom:0;position:relative}
 .tree-l1 .grow,.tree-l2 .grow{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:16px;word-break:break-word}
 .tree-l2.last{border-radius:0 0 var(--r) var(--r)}
+.tree-l2::before{content:"";position:absolute;left:16px;top:0;bottom:0;width:1px;background:rgba(255,255,255,.22);pointer-events:none}
+.tree-l2::after{content:"";position:absolute;left:16px;top:50%;width:9px;height:1px;background:rgba(255,255,255,.22);pointer-events:none}
+.tree-l2.last::before{bottom:auto;height:50%}
+body.side-collapsed .sidebar:not(:hover) .tree-l2::before,body.side-collapsed .sidebar:not(:hover) .tree-l2::after{display:none}
 
 /* store */
 .stores{display:flex;flex-direction:column;gap:8px;padding:8px 16px}
@@ -113,6 +117,11 @@ body.side-collapsed .sidebar:not(:hover) .company{justify-content:center;padding
 body.side-collapsed .sidebar:not(:hover) .stores{display:none}
 body.side-collapsed .sidebar:not(:hover) .tree-obj{overflow:hidden}
 body.side-collapsed .sidebar:not(:hover) .tree-l1,body.side-collapsed .sidebar:not(:hover) .tree-l2{background:transparent;border-radius:0}
+#ui-tip{position:fixed;z-index:10000;max-width:300px;background:#2b2f3d;color:#fff;font-size:14px;line-height:18px;padding:10px 14px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.28);pointer-events:none;opacity:0;visibility:hidden;transition:opacity .12s;white-space:normal;word-break:break-word}
+#ui-tip.on{opacity:1;visibility:visible}
+#ui-tip::after{content:"";position:absolute;width:0;height:0;border:6px solid transparent}
+#ui-tip.tip-right::after{left:-6px;top:50%;transform:translateY(-50%);border-right-color:#2b2f3d;border-left-width:0}
+#ui-tip.tip-top::after{bottom:-6px;left:50%;transform:translateX(-50%);border-top-color:#2b2f3d;border-bottom-width:0}
 
 /* Navbar — exact from Figma */
 .navbar{height:64px;background:#fff;display:flex;align-items:center;padding:8px 24px 8px 8px;position:sticky;top:0;z-index:40;gap:12px}
@@ -550,7 +559,7 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
         <span class="ic"><svg width="16" height="16" viewBox="0 0 16.2 14.4" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M0 0.675C0 0.302208 0.302208 0 0.675 0H10.125C10.4978 0 10.8 0.302208 10.8 0.675C10.8 1.04779 10.4978 1.35 10.125 1.35H9.9V13.725C9.9 14.0978 9.59779 14.4 9.225 14.4H7.875C7.50221 14.4 7.2 14.0978 7.2 13.725V11.475C7.2 11.1022 6.89779 10.8 6.525 10.8H4.275C3.90221 10.8 3.6 11.1022 3.6 11.475V13.725C3.6 14.0978 3.29779 14.4 2.925 14.4H0.675C0.302208 14.4 0 14.0978 0 13.725C0 13.3522 0.302208 13.05 0.675 13.05H0.9V1.35H0.675C0.302208 1.35 0 1.04779 0 0.675ZM2.7 3.15C2.7 2.90147 2.90147 2.7 3.15 2.7H4.05C4.29853 2.7 4.5 2.90147 4.5 3.15V4.05C4.5 4.29853 4.29853 4.5 4.05 4.5H3.15C2.90147 4.5 2.7 4.29853 2.7 4.05V3.15ZM3.15 6.3C2.90147 6.3 2.7 6.50147 2.7 6.75V7.65C2.7 7.89853 2.90147 8.1 3.15 8.1H4.05C4.29853 8.1 4.5 7.89853 4.5 7.65V6.75C4.5 6.50147 4.29853 6.3 4.05 6.3H3.15ZM6.3 3.15C6.3 2.90147 6.50147 2.7 6.75 2.7H7.65C7.89853 2.7 8.1 2.90147 8.1 3.15V4.05C8.1 4.29853 7.89853 4.5 7.65 4.5H6.75C6.50147 4.5 6.3 4.29853 6.3 4.05V3.15ZM6.75 6.3C6.50147 6.3 6.3 6.50147 6.3 6.75V7.65C6.3 7.89853 6.50147 8.1 6.75 8.1H7.65C7.89853 8.1 8.1 7.89853 8.1 7.65V6.75C8.1 6.50147 7.89853 6.3 7.65 6.3H6.75Z"/><path d="M11.925 3.6C11.5522 3.6 11.25 3.90221 11.25 4.275V13.5C11.25 13.9971 11.6529 14.4 12.15 14.4H15.525C15.8978 14.4 16.2 14.0978 16.2 13.725C16.2 13.3522 15.8978 13.05 15.525 13.05H15.3V4.95H15.525C15.8978 4.95 16.2 4.64779 16.2 4.275C16.2 3.90221 15.8978 3.6 15.525 3.6H11.925ZM12.375 6.75C12.375 6.50147 12.5765 6.3 12.825 6.3H13.725C13.9735 6.3 14.175 6.50147 14.175 6.75V7.65C14.175 7.89853 13.9735 8.1 13.725 8.1H12.825C12.5765 8.1 12.375 7.89853 12.375 7.65V6.75ZM12.825 9.9C12.5765 9.9 12.375 10.1015 12.375 10.35V11.25C12.375 11.4985 12.5765 11.7 12.825 11.7H13.725C13.9735 11.7 14.175 11.4985 14.175 11.25V10.35C14.175 10.1015 13.9735 9.9 13.725 9.9H12.825Z"/></svg></span>
         <span class="grow">Объекты</span>
         <span class="tail">
-          <span class="tic" title="Создать объект" onclick="event.stopPropagation();openConstructor()">
+          <span class="tic" onclick="event.stopPropagation();openConstructor()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>
           </span>
           <span class="tic" id="side-chev" title="Свернуть/развернуть" onclick="event.stopPropagation();toggleSideTree()">
@@ -910,7 +919,7 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
       <div id="zamer-foot2" style="position:sticky;bottom:0;background:#f4f4f6;padding:8px 0 0;display:none">
         <div style="background:#fff;border-radius:var(--r);padding:16px;margin-bottom:20px;display:flex;gap:12px">
           <button class="gb" onclick="zamerBack()" style="flex:1;height:48px;background:var(--base300);border-radius:var(--r);font-size:16px;font-weight:600;color:var(--ink);display:flex;align-items:center;justify-content:center;gap:8px;filter:drop-shadow(var(--shadow-sm))"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>Назад</button>
-          <button class="yb" onclick="zamerSave()" style="flex:1;height:48px;background:var(--yellow);color:var(--primary-content);border-radius:var(--r);font-size:16px;font-weight:600;filter:drop-shadow(var(--shadow-sm))">Создать замер</button>
+          <button id="zamer-save-btn" class="yb" onclick="zamerSave()" style="flex:1;height:48px;background:var(--yellow);color:var(--primary-content);border-radius:var(--r);font-size:16px;font-weight:600;filter:drop-shadow(var(--shadow-sm))">Создать замер</button>
         </div>
       </div>
     </div>
@@ -939,7 +948,7 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
       <div class="nb-avatar">АМ</div>
     </div>
   </header>
-  <div style="padding:28px 192px 60px;max-width:1440px;margin:0 auto">
+  <div style="padding:28px 192px 0;max-width:1440px;margin:0 auto">
     <h1 style="font-size:30px;font-weight:700;line-height:36px;color:var(--ink);margin-bottom:28px">Создание</h1>
 
     <div style="display:flex;flex-direction:column;gap:12px">
@@ -1037,14 +1046,16 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
         <button class="add-ghost" onclick="openZamerDrawer()" style="width:100%;height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r);color:var(--accent);font-size:16px;font-weight:600;filter:drop-shadow(var(--shadow-btn))"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>Создать ещё замер</button>
       </div>
 
-      <!-- Buttons: Отменить / Создать -->
-      <div style="background:#fff;border-radius:16px;padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <!-- Buttons: Отменить / Создать (sticky footer, как в дроверах) -->
+      <div style="position:sticky;bottom:0;background:#f4f4f6;padding:8px 0 0;z-index:5">
+        <div style="background:#fff;border-radius:16px;padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
         <button class="gb" onclick="goList()" style="height:48px;background:var(--base300);border-radius:var(--r);font-size:16px;font-weight:600;color:var(--ink);display:flex;align-items:center;justify-content:center;gap:8px;filter:drop-shadow(var(--shadow-btn))">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>Отменить
         </button>
         <button class="yb" onclick="submitCreate()" style="height:48px;background:var(--yellow);border-radius:var(--r);font-size:16px;font-weight:600;color:var(--primary-content);display:flex;align-items:center;justify-content:center;gap:8px;filter:drop-shadow(var(--shadow-btn))">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>Создать
         </button>
+        </div>
       </div>
     </div>
   </div>
@@ -2042,7 +2053,7 @@ function zamerBarHTML(steps,cur){
 function renderZamerSteps(){ var c=document.getElementById("zamer-steps"); if(c) c.innerHTML=zamerBarHTML(zamerStepsArr(), zamerStep-1); }
 function showZamerStep(n){ zamerStep=n; document.getElementById("zamer-step1").style.display=n===1?"flex":"none"; document.getElementById("zamer-step2").style.display=n===2?"flex":"none"; document.getElementById("zamer-foot1").style.display=n===1?"block":"none"; document.getElementById("zamer-foot2").style.display=n===2?"block":"none"; renderZamerSteps(); var s=document.getElementById(n===2?"zamer-step2":"zamer-step1"); if(s)s.scrollTop=0; }
 function zamerGoStep(n){ var edit=(zamerEditIdx!=null); var max=zamerStepsArr().length; if(n<1||n>max||n===zamerStep) return; if(edit||n<zamerStep) showZamerStep(n); }
-function openZamerDrawer(){ zamerTargetObjId=null; document.getElementById("zamer-overlay").classList.add("on"); document.getElementById("zamer-drawer").classList.add("on"); var n=document.getElementById("zamer-name"); if(n)n.value="Помещение "+String((typeof crZamers!=="undefined"?crZamers.length:0)+1).padStart(2,"0"); var tt=document.getElementById("zamer-title"); if(tt)tt.textContent="Создание замера"; selectZamerOpt("own"); showZamerStep(1); zamerEditIdx=null; }
+function openZamerDrawer(){ zamerTargetObjId=null; document.getElementById("zamer-overlay").classList.add("on"); document.getElementById("zamer-drawer").classList.add("on"); var n=document.getElementById("zamer-name"); if(n)n.value="Помещение "+String((typeof crZamers!=="undefined"?crZamers.length:0)+1).padStart(2,"0"); var tt=document.getElementById("zamer-title"); if(tt)tt.textContent="Создание замера"; selectZamerOpt("own"); showZamerStep(1); zamerEditIdx=null; var sv=document.getElementById("zamer-save-btn"); if(sv)sv.textContent="Создать замер"; }
 function closeZamerDrawer(){ document.getElementById("zamer-overlay").classList.remove("on"); document.getElementById("zamer-drawer").classList.remove("on"); }
 function selectZamerOpt(opt){ zamerOpt=opt; [["own","zamer-opt-own","zamer-radio-own"],["bro","zamer-opt-bro","zamer-radio-bro"]].forEach(function(t){ var active=t[0]===opt; var el=document.getElementById(t[1]); var rd=document.getElementById(t[2]); if(!el||!rd)return; el.style.border=active?"1px solid var(--yellow)":"1px solid var(--base300)"; el.classList.toggle("active",active); rd.style.border=active?"1px solid var(--yellow)":"1px solid rgba(22,22,22,.2)"; var dot=rd.querySelector("span"); if(dot){ dot.style.display=active?"block":"none"; if(active){ dot.style.width="12px"; dot.style.height="12px"; dot.style.borderRadius="50%"; dot.style.background="var(--yellow)"; } } }); renderZamerSteps(); }
 function submitZamer(){ if(zamerOpt==="own"){ showZamerStep(2); } else { closeZamerDrawer(); toast("Расчёт BRO — шаги 2–4 в разработке"); } }
@@ -2053,7 +2064,7 @@ function getZamerField(lbl){ var ins=document.querySelectorAll('#zamer-step2 inp
 function setZamerField(lbl,val){ var ins=document.querySelectorAll('#zamer-step2 input[inputmode="decimal"]'); for(var i=0;i<ins.length;i++){ var l=ins[i].parentElement.querySelector("div"); if(l&&l.textContent.indexOf(lbl)===0){ ins[i].value=val||""; return; } } }
 function zamerRowHTML(z,i){
   return '<div style="background:var(--base200);border-radius:12px;padding:12px;display:flex;align-items:center;gap:12px">'+
-    '<div style="width:56px;height:56px;border-radius:8px;background:#fff;border:1px solid var(--base300);flex-shrink:0;display:grid;place-items:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#8a8fb0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19.875 12c.621 0 1.125 .512 1.125 1.143v5.714c0 .631 -.504 1.143 -1.125 1.143h-15.875a1 1 0 0 1 -1 -1v-5.857c0 -.631 .504 -1.143 1.125 -1.143h15.75z"></path><path d="M9 12v2"></path><path d="M6 12v3"></path><path d="M12 12v3"></path><path d="M18 12v3"></path><path d="M15 12v2"></path><path d="M3 3v4"></path><path d="M3 5h18"></path><path d="M21 3v4"></path></svg></div>'+
+    '<div style="width:56px;height:56px;border-radius:8px;background:#fff;border:1px solid var(--base300);flex-shrink:0;display:grid;place-items:center"><svg width="26" height="26" viewBox="0 0 20 20" fill="none"><path d="M15.4167 2.5H4.58333C4.0308 2.5 3.50089 2.71949 3.11019 3.11019C2.71949 3.50089 2.5 4.0308 2.5 4.58333V15.4167C2.5 15.9692 2.71949 16.4991 3.11019 16.8898C3.50089 17.2805 4.0308 17.5 4.58333 17.5H11.6392V16.6667H10V12.5H9.16667V16.6667H4.58333C4.25181 16.6667 3.93387 16.535 3.69945 16.3005C3.46503 16.0661 3.33333 15.7482 3.33333 15.4167V13.3333H7.91667V12.5H3.33333V8.33333H5.7975V7.5H3.33333V4.58333C3.33333 4.25181 3.46503 3.93387 3.69945 3.69945C3.93387 3.46503 4.25181 3.33333 4.58333 3.33333H9.16667V7.5H7.5V8.33333H9.16667V10.8333H10V3.33333H15.4167C15.7482 3.33333 16.0661 3.46503 16.3005 3.69945C16.535 3.93387 16.6667 4.25181 16.6667 4.58333V10H11.6667V10.8333H16.6667V15.4167C16.6667 15.7482 16.535 16.0661 16.3005 16.3005C16.0661 16.535 15.7482 16.6667 15.4167 16.6667H13.2883V17.5H15.4167C15.9692 17.5 16.4991 17.2805 16.8898 16.8898C17.2805 16.4991 17.5 15.9692 17.5 15.4167V4.58333C17.5 4.0308 17.2805 3.50089 16.8898 3.11019C16.4991 2.71949 15.9692 2.5 15.4167 2.5Z" fill="#8a8fb0" stroke="#8a8fb0" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'+
     '<div style="flex:1;min-width:0">'+
       '<div style="font-size:16px;font-weight:700;line-height:22px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(z.name)+'</div>'+
       '<div style="font-size:13px;line-height:18px;color:var(--base-content);opacity:.7;margin-top:4px;display:flex;gap:12px;flex-wrap:nowrap;white-space:nowrap;align-items:baseline"><span>Пол: '+(z.floor||"0")+' м<sup>2</sup></span><span>Стены: '+(z.walls||"0")+' м<sup>2</sup></span><span>Высота: '+(z.height||"0")+' м</span></div>'+
@@ -2066,7 +2077,7 @@ function zamerRowHTML(z,i){
 }
 function renderCrZamers(){ var e=document.getElementById("cr-zamer-empty"),f=document.getElementById("cr-zamer-filled"),l=document.getElementById("cr-zamers-list"); if(!e||!f||!l)return; if(!crZamers.length){ e.style.display="block"; f.style.display="none"; l.innerHTML=""; return; } e.style.display="none"; f.style.display="block"; l.innerHTML=crZamers.map(zamerRowHTML).join(""); }
 function deleteCrZamer(i){ crZamers.splice(i,1); renderCrZamers(); notify("Замер удалён"); }
-function editCrZamer(i){ var z=crZamers[i]; if(!z)return; zamerEditIdx=i; var tt=document.getElementById("zamer-title"); if(tt)tt.textContent="Редактирование замера"; document.getElementById("zamer-overlay").classList.add("on"); document.getElementById("zamer-drawer").classList.add("on"); selectZamerOpt("own"); var n=document.getElementById("zamer-name"); if(n)n.value=z.name; showZamerStep(2); setZamerField("Площадь пола",z.floor); setZamerField("Площадь стен",z.walls); setZamerField("Высота помещения",z.height); }
+function editCrZamer(i){ var z=crZamers[i]; if(!z)return; zamerEditIdx=i; var tt=document.getElementById("zamer-title"); if(tt)tt.textContent="Редактирование замера"; document.getElementById("zamer-overlay").classList.add("on"); document.getElementById("zamer-drawer").classList.add("on"); selectZamerOpt("own"); var n=document.getElementById("zamer-name"); if(n)n.value=z.name; showZamerStep(2); setZamerField("Площадь пола",z.floor); setZamerField("Площадь стен",z.walls); setZamerField("Высота помещения",z.height); var sv=document.getElementById("zamer-save-btn"); if(sv)sv.textContent="Сохранить"; }
 function zamerSave(){ if(zamerTargetObjId){ var _o=objects.find(function(x){return x.id===zamerTargetObjId;}); var _room=getZamerAll(); if(_o){ _o.userRooms=(_o.userRooms||[]); _o.userRooms.push(_room); } zamerTargetObjId=null; closeZamerDrawer(); if(_o && currentObj && _o.id===currentObj.id){ var _e=document.getElementById("so-rooms-empty"),_w=document.getElementById("so-rooms-wrap"); if(_e)_e.style.display="none"; if(_w)_w.style.display="grid"; renderRoomsNav(); selectRoom(roomsFor(_o).length-1); } notify("Замер добавлен"); return; } var isEdit=(zamerEditIdx!=null && crZamers[zamerEditIdx]); var z={name:(document.getElementById("zamer-name").value.trim()||"Помещение"),floor:getZamerField("Площадь пола"),walls:getZamerField("Площадь стен"),height:getZamerField("Высота помещения")}; if(isEdit){ crZamers[zamerEditIdx]=z; } else { crZamers.push(z); } zamerEditIdx=null; closeZamerDrawer(); renderCrZamers(); notify(isEdit?"Замер сохранён":"Замер добавлен"); }
 /* ── drawer radio logic ── */
 let drawerOpt = 'manual';
@@ -3030,6 +3041,69 @@ renderList();
 renderSideTree();
 renderHomeObjects();
 goHome();
+
+/* ── Sidebar hover tooltips ── */
+function uiTipEl(){ var t=document.getElementById('ui-tip'); if(!t){ t=document.createElement('div'); t.id='ui-tip'; document.body.appendChild(t); } return t; }
+var uiTipTimer=null, uiTipCur=null;
+function showUiTip(text, anchor, placement){
+  if(!text||!anchor) return;
+  var t=uiTipEl(); t.textContent=text;
+  t.classList.remove('tip-right','tip-top');
+  t.classList.add(placement==='right'?'tip-right':'tip-top');
+  t.style.left='-9999px'; t.style.top='0px'; t.classList.add('on');
+  var tw=t.offsetWidth, th=t.offsetHeight;
+  var r=anchor.getBoundingClientRect();
+  var x,y;
+  if(placement==='right'){ x=r.right+12; y=r.top+r.height/2-th/2; }
+  else { x=r.left+r.width/2-tw/2; y=r.top-th-12; }
+  if(x+tw>window.innerWidth-8) x=window.innerWidth-8-tw;
+  if(x<8) x=8;
+  if(y<8) y=8;
+  if(y+th>window.innerHeight-8) y=window.innerHeight-8-th;
+  t.style.left=Math.round(x)+'px'; t.style.top=Math.round(y)+'px';
+}
+function hideUiTip(){ var t=document.getElementById('ui-tip'); if(t) t.classList.remove('on'); }
+function scheduleUiTip(text, anchor, placement){
+  var key=placement+'|'+text;
+  if(uiTipCur===key) return;
+  uiTipCur=key;
+  if(uiTipTimer) clearTimeout(uiTipTimer);
+  uiTipTimer=setTimeout(function(){ showUiTip(text, anchor, placement); }, 300);
+}
+function cancelUiTip(){ if(uiTipTimer){ clearTimeout(uiTipTimer); uiTipTimer=null; } uiTipCur=null; hideUiTip(); }
+function initSideTips(){
+  var objRow=document.getElementById('side-objects-row');
+  if(objRow && !objRow._tipBound){
+    objRow._tipBound=true;
+    objRow.addEventListener('mouseover', function(e){
+      if(document.body.classList.contains('side-collapsed')){ cancelUiTip(); return; }
+      var tic=e.target.closest('.tail .tic');
+      if(tic){
+        if(tic.id==='side-chev'){ cancelUiTip(); return; }
+        scheduleUiTip('Создать объект', tic, 'top');
+        return;
+      }
+      scheduleUiTip('Перейти в объекты', objRow, 'top');
+    });
+    objRow.addEventListener('mouseout', function(){ cancelUiTip(); });
+  }
+  var tree=document.getElementById('side-tree');
+  if(tree && !tree._tipBound){
+    tree._tipBound=true;
+    tree.addEventListener('mouseover', function(e){
+      if(document.body.classList.contains('side-collapsed')){ cancelUiTip(); return; }
+      var item=e.target.closest('.tree-l2');
+      if(item && !item.classList.contains('last')){
+        var grow=item.querySelector('.grow');
+        if(grow && grow.scrollHeight>grow.clientHeight+1){ scheduleUiTip(grow.textContent, item, 'right'); return; }
+      }
+      cancelUiTip();
+    });
+    tree.addEventListener('mouseleave', function(){ cancelUiTip(); });
+  }
+}
+initSideTips();
+
 </script>
 </body>
 </html>
