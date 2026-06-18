@@ -223,6 +223,8 @@ body.side-collapsed .sidebar:not(:hover) .tree-l1,body.side-collapsed .sidebar:n
 .mini-smeta-row:hover{background:var(--base200)}
 .mini-create-btn{transition:background .2s}
 .mini-create-btn:hover{background:var(--base200)!important}
+.onb-item{background:#fff;cursor:pointer;transition:background .15s}
+.onb-item:hover{background:#eceef6}
 
 /* "Сметы объекта" label */
 .smetas-label{display:flex;align-items:center;gap:8px;margin-bottom:12px}
@@ -259,6 +261,44 @@ body.side-collapsed .sidebar:not(:hover) .tree-l1,body.side-collapsed .sidebar:n
 .scard-acts button{width:32px;height:32px;border-radius:var(--r);display:grid;place-items:center;filter:drop-shadow(var(--shadow-sm))}
 .scard-acts button:hover{background:var(--base300)}
 .scard-acts button svg{width:20px;height:20px;color:var(--ink)}
+/* ── Помещения tab ── */
+#so-rooms-wrap{display:grid;grid-template-columns:256px minmax(0,1fr) 340px;gap:16px;align-items:start}
+.rooms-nav-card{background:#fff;border:.5px solid var(--base300);border-radius:var(--r);padding:8px}
+.rooms-detail-card{background:#fff;border:.5px solid var(--base300);border-radius:var(--r);padding:24px;min-width:0}
+.room-nav-item{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 12px;border-radius:8px;font-size:14px;line-height:20px;color:var(--ink);text-align:left;transition:background .15s}
+.room-nav-item:hover{background:var(--base200)}
+.room-nav-item.on{background:var(--base200)}
+.room-nav-item .rn-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.room-nav-item .rn-dots{width:24px;height:20px;border-radius:6px;display:grid;visibility:hidden;place-items:center;flex-shrink:0;color:var(--base-content)}
+.room-nav-item:hover .rn-dots,.room-nav-item.on .rn-dots{visibility:visible}
+.rd-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
+.rd-title{font-size:20px;font-weight:700;line-height:28px;color:var(--ink)}
+.rd-acts{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.rd-edit{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;background:#fff;border:.5px solid var(--base300);border-radius:8px;font-size:14px;font-weight:600;color:var(--ink);filter:drop-shadow(var(--shadow-sm))}
+.rd-edit svg{width:18px;height:18px;color:var(--ink)}
+.rd-edit:hover{background:var(--base200)}
+.rd-dots{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;background:#fff;border:.5px solid var(--base300);filter:drop-shadow(var(--shadow-sm));color:var(--ink)}
+.rd-dots svg{width:18px;height:18px}
+.rd-dots:hover{background:var(--base200)}
+.rsec{margin-top:24px}
+.rsec-chip{display:inline-flex;align-items:center;gap:8px;background:var(--base200);border-radius:8px;padding:7px 12px;font-size:14px;font-weight:600;color:var(--ink)}
+.rsec-chip svg{width:18px;height:18px;color:var(--ink)}
+.rsec-vals{display:flex;flex-direction:column;gap:14px;margin-top:16px}
+.rv-row{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.rv-pair{display:grid;grid-template-columns:150px auto;gap:10px;align-items:start}
+.rv-l{font-size:14px;line-height:18px;color:var(--base-content)}
+.rv-val{font-size:14px;line-height:18px;font-weight:700;color:var(--ink);white-space:nowrap}
+.rv-val sup{font-size:.7em;font-weight:700}
+.rside-card{background:#fff;border:.5px solid var(--base300);border-radius:var(--r);padding:20px}
+.rside-card+.rside-card{margin-top:16px}
+.rside-h{font-size:18px;font-weight:700;line-height:24px;color:var(--ink);display:flex;align-items:center;gap:8px}
+.rside-c{color:var(--base-content);font-weight:600;opacity:.5}
+.rplan-big{margin-top:16px;border-radius:8px;overflow:hidden}
+.rthumbs{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.rthumb{width:64px;height:64px;border:2px solid transparent;border-radius:8px;overflow:hidden;cursor:pointer;display:grid;place-items:center;padding:5px}
+.rthumb.on{border-color:#f5b301}
+.rplan-empty{margin-top:16px;border:1px dashed var(--base300);border-radius:8px;padding:28px 16px;text-align:center;color:var(--base-content);opacity:.6;font-size:13px}
+.so-rooms-empty-card{background:#fff;border:.5px solid var(--base300);border-radius:var(--r);padding:64px 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
 /* cost row */
 .scard-cost{border-top:1px dashed var(--line2);padding-top:12px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:nowrap}
 .cost-grp{display:flex;gap:10px;align-items:center}
@@ -443,7 +483,7 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
 .so-tab svg{width:20px;height:20px}
 .so-tab:not(.on){opacity:.8}
 .so-tab:not(.on):hover{opacity:1;background:var(--base200)}
-.so-tab.on{border-bottom-color:var(--ink);font-weight:600}
+.so-tab.on{border-bottom-color:var(--ink);font-weight:600;color:var(--ink)}
 .so-ic{width:36px;height:36px;border-radius:50%;background:var(--base300);display:grid;place-items:center;flex-shrink:0}
 .so-ic svg{width:16px;height:16px}
 /* Smeta page */
@@ -1162,7 +1202,7 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
         <!-- Training items list -->
         <div id="home-onboard-list" style="display:flex;flex-direction:column;gap:8px">
           <!-- item template -->
-          <div onclick="startTour(1)" style="cursor:pointer;background:#fff;border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:4px;transition:background 0.2s" onmouseover="this.style.background='#fafbfd'" onmouseout="this.style.background='#fff'">
+          <div class="onb-item" onclick="startTour(1)" style="border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:4px">
             <div style="display:flex;gap:12px;align-items:center;flex:1">
               <span id="onb-check-1" style="width:24px;height:24px;border-radius:var(--r);background:#f4f4f6;border:1px solid #f4f4f6;flex-shrink:0"></span>
               <div>
@@ -1170,9 +1210,9 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
                 <div style="font-size:12px;line-height:12px;color:var(--primary-content);opacity:.6;margin-top:2px">Создайте объект, чтобы хранить в нем все сметы по проекту</div>
               </div>
             </div>
-            <button style="height:24px;padding:0 8px;background:#1a295c;color:#fff;border-radius:var(--r);font-size:12px;font-weight:600;filter:drop-shadow(var(--shadow-sm))">Начать</button>
+            <button onclick="event.stopPropagation();startTour(1)" style="height:24px;padding:0 8px;background:#1a295c;color:#fff;border-radius:var(--r);font-size:12px;font-weight:600;filter:drop-shadow(var(--shadow-sm))">Начать</button>
           </div>
-          <div onclick="startTour(2)" style="cursor:pointer;background:#fff;border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:4px;transition:background 0.2s" onmouseover="this.style.background='#fafbfd'" onmouseout="this.style.background='#fff'">
+          <div class="onb-item" onclick="startTour(2)" style="border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:4px">
             <div style="display:flex;gap:12px;align-items:center;flex:1">
               <span id="onb-check-2" style="width:24px;height:24px;border-radius:var(--r);background:#f4f4f6;border:1px solid #f4f4f6;flex-shrink:0"></span>
               <div>
@@ -1180,9 +1220,9 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
                 <div style="font-size:12px;line-height:12px;color:var(--primary-content);opacity:.6;margin-top:2px">Сформируйте смету для расчета стоимости работ и материалов по объекту</div>
               </div>
             </div>
-            <button style="height:24px;padding:0 8px;background:#1a295c;color:#fff;border-radius:var(--r);font-size:12px;font-weight:600;filter:drop-shadow(var(--shadow-sm))">Начать</button>
+            <button onclick="event.stopPropagation();startTour(2)" style="height:24px;padding:0 8px;background:#1a295c;color:#fff;border-radius:var(--r);font-size:12px;font-weight:600;filter:drop-shadow(var(--shadow-sm))">Начать</button>
           </div>
-          <div onclick="startTour(3)" style="cursor:pointer;background:#fff;border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:4px;transition:background 0.2s" onmouseover="this.style.background='#fafbfd'" onmouseout="this.style.background='#fff'">
+          <div class="onb-item" onclick="startTour(3)" style="border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:4px">
             <div style="display:flex;gap:12px;align-items:center;flex:1">
               <span id="onb-check-3" style="width:24px;height:24px;border-radius:var(--r);background:#f4f4f6;border:1px solid #f4f4f6;flex-shrink:0"></span>
               <div>
@@ -1190,9 +1230,9 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
                 <div style="font-size:12px;line-height:12px;color:var(--primary-content);opacity:.6;margin-top:2px">Наполните смету работами, материалами и другими позициями</div>
               </div>
             </div>
-            <button style="height:24px;padding:0 8px;background:#1a295c;color:#fff;border-radius:var(--r);font-size:12px;font-weight:600;filter:drop-shadow(var(--shadow-sm))">Начать</button>
+            <button onclick="event.stopPropagation();startTour(3)" style="height:24px;padding:0 8px;background:#1a295c;color:#fff;border-radius:var(--r);font-size:12px;font-weight:600;filter:drop-shadow(var(--shadow-sm))">Начать</button>
           </div>
-          <div onclick="startTour(4)" style="cursor:pointer;background:#fff;border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:4px;transition:background 0.2s" onmouseover="this.style.background='#fafbfd'" onmouseout="this.style.background='#fff'">
+          <div class="onb-item" onclick="startTour(4)" style="border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:4px">
             <div style="display:flex;gap:12px;align-items:center;flex:1">
               <span id="onb-check-4" style="width:24px;height:24px;border-radius:var(--r);background:#f4f4f6;border:1px solid #f4f4f6;flex-shrink:0"></span>
               <div>
@@ -1200,9 +1240,9 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
                 <div style="font-size:12px;line-height:12px;color:var(--primary-content);opacity:.6;margin-top:2px">Актуализируйте статус смет по мере выполнения строительных работ</div>
               </div>
             </div>
-            <button style="height:24px;padding:0 8px;background:#1a295c;color:#fff;border-radius:var(--r);font-size:12px;font-weight:600;filter:drop-shadow(var(--shadow-sm))">Начать</button>
+            <button onclick="event.stopPropagation();startTour(4)" style="height:24px;padding:0 8px;background:#1a295c;color:#fff;border-radius:var(--r);font-size:12px;font-weight:600;filter:drop-shadow(var(--shadow-sm))">Начать</button>
           </div>
-          <div onclick="startTour(5)" style="cursor:pointer;background:#fff;border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:4px;transition:background 0.2s" onmouseover="this.style.background='#fafbfd'" onmouseout="this.style.background='#fff'">
+          <div class="onb-item" onclick="startTour(5)" style="border-radius:var(--r);padding:12px;display:flex;align-items:center;gap:4px">
             <div style="display:flex;gap:12px;align-items:center;flex:1">
               <span id="onb-check-5" style="width:24px;height:24px;border-radius:var(--r);background:#f4f4f6;border:1px solid #f4f4f6;flex-shrink:0"></span>
               <div>
@@ -1210,7 +1250,7 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
                 <div style="font-size:12px;line-height:12px;color:var(--primary-content);opacity:.6;margin-top:2px">Предоставьте заказчику доступ к просмотру смет в этом объекте</div>
               </div>
             </div>
-            <button style="height:24px;padding:0 8px;background:#1a295c;color:#fff;border-radius:var(--r);font-size:12px;font-weight:600;filter:drop-shadow(var(--shadow-sm))">Начать</button>
+            <button onclick="event.stopPropagation();startTour(5)" style="height:24px;padding:0 8px;background:#1a295c;color:#fff;border-radius:var(--r);font-size:12px;font-weight:600;filter:drop-shadow(var(--shadow-sm))">Начать</button>
           </div>
         </div>
       </div>
@@ -1388,23 +1428,27 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
     <!-- title + actions -->
     <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:12px 0 24px">
       <h1 id="screen-object-title" style="font-size:26px;font-weight:700;line-height:34px;color:var(--ink)">Объект</h1>
+      <div style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+      <button id="so-create-smeta-btn" onclick="createSmetaForObj()" style="display:none;align-items:center;gap:8px;height:48px;padding:0 20px;background:var(--yellow);color:var(--primary-content);border-radius:var(--r);font-size:16px;font-weight:600;filter:drop-shadow(var(--shadow-sm))"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>Создать смету</button>
+      <button id="so-add-room-btn" onclick="addRoomForObj()" style="display:none;align-items:center;gap:8px;height:48px;padding:0 20px;background:var(--yellow);color:var(--primary-content);border-radius:var(--r);font-size:16px;font-weight:600;filter:drop-shadow(var(--shadow-sm))"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>Добавить замер</button>
       <button onclick="toast(&apos;Настройки объекта&apos;)" title="Настройки" style="width:48px;height:48px;border-radius:var(--r);background:var(--accent);display:grid;place-items:center;flex-shrink:0;filter:drop-shadow(var(--shadow-sm))">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"/><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
       </button>
+      </div>
     </div>
     <!-- tabs -->
     <div style="display:flex;align-items:flex-start;border-radius:var(--r);overflow:hidden;margin-bottom:24px">
-      <button class="so-tab on" onclick="toast(&apos;Раздел «Общее»&apos;)">
+      <button class="so-tab on" onclick="setObjTab(&apos;general&apos;)">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>Общее</button>
-      <button class="so-tab" onclick="openSmetasFromObject()">
+      <button class="so-tab" onclick="setObjTab(&apos;smetas&apos;)">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m17.25 1.5c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m0 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m1.125 0H12m9.75-3.75c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125M12 10.875v-1.5c0-.621.504-1.125 1.125-1.125m0 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125m0 0v1.5c0 .621.504 1.125 1.125 1.125M12 13.5c0-.621.504-1.125 1.125-1.125m0 0h7.5"/></svg>Сметы</button>
-      <button class="so-tab" onclick="toast(&apos;Раздел «Помещения»&apos;)">
-        <svg width="20" height="20" viewBox="0 0 15.6667 15.6667" fill="currentColor" stroke="currentColor" stroke-width="0.6667" stroke-linecap="round" stroke-linejoin="round"><path d="M13.25 0.333333H2.41667C1.86413 0.333333 1.33423 0.552827 0.943528 0.943528C0.552827 1.33423 0.333333 1.86413 0.333333 2.41667V13.25C0.333333 13.8025 0.552827 14.3324 0.943528 14.7231C1.33423 15.1138 1.86413 15.3333 2.41667 15.3333H9.4725V14.5H7.83333V10.3333H7V14.5H2.41667C2.08515 14.5 1.7672 14.3683 1.53278 14.1339C1.29836 13.8995 1.16667 13.5815 1.16667 13.25V11.1667H5.75V10.3333H1.16667V6.16667H3.63083V5.33333H1.16667V2.41667C1.16667 2.08515 1.29836 1.7672 1.53278 1.53278C1.7672 1.29836 2.08515 1.16667 2.41667 1.16667H7V5.33333H5.33333V6.16667H7V8.66667H7.83333V1.16667H13.25C13.5815 1.16667 13.8995 1.29836 14.1339 1.53278C14.3683 1.7672 14.5 2.08515 14.5 2.41667V7.83333H9.5V8.66667H14.5V13.25C14.5 13.5815 14.3683 13.8995 14.1339 14.1339C13.8995 14.3683 13.5815 14.5 13.25 14.5H11.1217V15.3333H13.25C13.8025 15.3333 14.3324 15.1138 14.7231 14.7231C15.1138 14.3324 15.3333 13.8025 15.3333 13.25V2.41667C15.3333 1.86413 15.1138 1.33423 14.7231 0.943528C14.3324 0.552827 13.8025 0.333333 13.25 0.333333Z"/></svg>Помещения</button>
+      <button class="so-tab" onclick="setObjTab(&apos;rooms&apos;)">
+        <svg width="20" height="20" viewBox="0 0 15.6667 15.6667" fill="currentColor" stroke="currentColor" stroke-width="0.6667" stroke-linecap="round" stroke-linejoin="round"><path d="M13.25 0.333333H2.41667C1.86413 0.333333 1.33423 0.552827 0.943528 0.943528C0.552827 1.33423 0.333333 1.86413 0.333333 2.41667V13.25C0.333333 13.8025 0.552827 14.3324 0.943528 14.7231C1.33423 15.1138 1.86413 15.3333 2.41667 15.3333H9.4725V14.5H7.83333V10.3333H7V14.5H2.41667C2.08515 14.5 1.7672 14.3683 1.53278 14.1339C1.29836 13.8995 1.16667 13.5815 1.16667 13.25V11.1667H5.75V10.3333H1.16667V6.16667H3.63083V5.33333H1.16667V2.41667C1.16667 2.08515 1.29836 1.7672 1.53278 1.53278C1.7672 1.29836 2.08515 1.16667 2.41667 1.16667H7V5.33333H5.33333V6.16667H7V8.66667H7.83333V1.16667H13.25C13.5815 1.16667 13.8995 1.29836 14.1339 1.53278C14.3683 1.7672 14.5 2.08515 14.5 2.41667V7.83333H9.5V8.66667H14.5V13.25C14.5 13.5815 14.3683 13.8995 14.1339 14.1339C13.8995 14.3683 13.5815 14.5 13.25 14.5H11.1217V15.3333H13.25C13.8025 15.3333 14.3324 15.1138 14.7231 14.7231C15.1138 14.3324 15.3333 13.8025 15.3333 13.25V2.41667C15.3333 1.86413 15.1138 1.33423 14.7231 0.943528C14.3324 0.552827 13.8025 0.333333 13.25 0.333333Z"/></svg>Замеры</button>
       <button class="so-tab" onclick="toast(&apos;Раздел «Вложения»&apos;)">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"/></svg>Вложения</button>
     </div>
     <!-- content grid -->
-    <div style="display:flex;flex-direction:column;gap:16px">
+    <div id="so-tab-general" style="display:flex;flex-direction:column;gap:16px">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch">
         <!-- Общая информация -->
         <div style="background:#fff;border:.5px solid var(--base300);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:16px">
@@ -1441,6 +1485,39 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
           <span style="font-size:18px;font-weight:600;line-height:18px;color:var(--primary-content)">События</span>
           <div id="so-events" style="background:var(--base300);border-radius:var(--r);padding:8px;display:flex;flex-direction:column;gap:8px;flex:1"></div>
         </div>
+      </div>
+    </div>
+    <!-- Сметы tab -->
+    <div id="so-tab-smetas" style="display:none">
+      <div class="ctrl" style="margin-bottom:16px">
+        <div class="seg">
+          <button class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m5 13 4 4L19 7"/></svg>Активные</button>
+          <button><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18v3H3zM5 10h14v10H5zM9 13h6"/></svg>Архивные</button>
+        </div>
+        <div class="ctrl-r">
+          <div class="search-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input placeholder="Поиск" oninput="filterObjSmetas(this.value)"></div>
+          <button class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5h18l-7 8v6l-4-2v-4z"/></svg>Фильтры</button>
+          <button class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4v16m0 0-3-3m3 3 3-3M17 20V4m0 0-3 3m3-3 3 3"/></svg>Сортировка</button>
+          <div class="view-seg">
+            <button id="so-view-grid" class="on" onclick="setObjSmetaView(&apos;cards&apos;)" title="Карточки"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg></button>
+            <button id="so-view-list" onclick="setObjSmetaView(&apos;list&apos;)" title="Список"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <div id="so-smetas-list"></div>
+    </div>
+    <!-- Помещения tab -->
+    <div id="so-tab-rooms" style="display:none">
+      <div id="so-rooms-empty" class="so-rooms-empty-card" style="display:none">
+        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" style="opacity:.3"><path d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg>
+        <div style="font-size:18px;font-weight:700;color:var(--ink);margin-top:8px">Нет замеров в объекте</div>
+        <div style="font-size:14px;line-height:20px;color:var(--base-content)"><button onclick="addRoomForObj()" style="color:var(--accent);font-weight:600">Добавьте замер</button> и укажите его размеры.</div>
+        <div style="font-size:14px;line-height:20px;color:var(--base-content)">Это упростит составление сметы и поможет упорядочить данные по объекту.</div>
+      </div>
+      <div id="so-rooms-wrap" style="display:none">
+        <div class="rooms-nav-card"><div id="so-rooms-nav"></div></div>
+        <div id="so-room-detail" class="rooms-detail-card"></div>
+        <div id="so-room-side"></div>
       </div>
     </div>
   </div>
@@ -1489,7 +1566,7 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
       <div style="display:flex;align-items:flex-start;border-bottom:1px solid var(--base300);margin-bottom:20px;overflow-x:auto">
         <button class="sm-tab on" onclick="toast('Раздел «Смета»')"><svg viewBox="0 0 15.75 12.375" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M0 1.40625C0 0.629599 0.6296 0 1.40625 0H14.3438C15.1204 0 15.75 0.6296 15.75 1.40625V10.9688C15.75 11.7454 15.1204 12.375 14.3438 12.375H1.40625C0.629599 12.375 0 11.7454 0 10.9688V1.40625ZM14.625 4.21875C14.625 4.06342 14.4991 3.9375 14.3438 3.9375H8.71875C8.56342 3.9375 8.4375 4.06342 8.4375 4.21875V5.34375C8.4375 5.49908 8.56342 5.625 8.71875 5.625H14.3438C14.4991 5.625 14.625 5.49908 14.625 5.34375V4.21875ZM14.625 7.03125C14.625 6.87592 14.4991 6.75 14.3438 6.75H8.71875C8.56342 6.75 8.4375 6.87592 8.4375 7.03125V8.15625C8.4375 8.31158 8.56342 8.4375 8.71875 8.4375H14.3438C14.4991 8.4375 14.625 8.31158 14.625 8.15625V7.03125ZM14.625 9.84375C14.625 9.68842 14.4991 9.5625 14.3438 9.5625H8.71875C8.56342 9.5625 8.4375 9.68842 8.4375 9.84375V10.9688C8.4375 11.1241 8.56342 11.25 8.71875 11.25H14.3438C14.4991 11.25 14.625 11.1241 14.625 10.9688V9.84375ZM7.03125 11.25C7.18658 11.25 7.3125 11.1241 7.3125 10.9688V9.84375C7.3125 9.68842 7.18658 9.5625 7.03125 9.5625H1.40625C1.25092 9.5625 1.125 9.68842 1.125 9.84375V10.9688C1.125 11.1241 1.25092 11.25 1.40625 11.25H7.03125ZM1.40625 8.4375H7.03125C7.18658 8.4375 7.3125 8.31158 7.3125 8.15625V7.03125C7.3125 6.87592 7.18658 6.75 7.03125 6.75H1.40625C1.25092 6.75 1.125 6.87592 1.125 7.03125V8.15625C1.125 8.31158 1.25092 8.4375 1.40625 8.4375ZM1.40625 5.625H7.03125C7.18658 5.625 7.3125 5.49908 7.3125 5.34375V4.21875C7.3125 4.06342 7.18658 3.9375 7.03125 3.9375H1.40625C1.25092 3.9375 1.125 4.06342 1.125 4.21875V5.34375C1.125 5.49908 1.25092 5.625 1.40625 5.625Z"/></svg>Смета</button>
         <button class="sm-tab" onclick="toast('Раздел «Контроль исполнения»')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25Z"/></svg>Контроль исполнения</button>
-        <button class="sm-tab" onclick="toast('Раздел «Помещения»')"><svg viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0.6667" stroke-linecap="round" stroke-linejoin="round"><path d="M15.4167 2.5H4.58333C4.0308 2.5 3.5009 2.71949 3.11019 3.11019C2.71949 3.5009 2.5 4.0308 2.5 4.58333V15.4167C2.5 15.9692 2.71949 16.4991 3.11019 16.8898C3.5009 17.2805 4.0308 17.5 4.58333 17.5H11.6392V16.6667H10V12.5H9.16667V16.6667H4.58333C4.25181 16.6667 3.93387 16.535 3.69945 16.3005C3.46503 16.0661 3.33333 15.7482 3.33333 15.4167V13.3333H7.91667V12.5H3.33333V8.33333H5.7975V7.5H3.33333V4.58333C3.33333 4.25181 3.46503 3.93387 3.69945 3.69945C3.93387 3.46503 4.25181 3.33333 4.58333 3.33333H9.16667V7.5H7.5V8.33333H9.16667V10.8333H10V3.33333H15.4167C15.7482 3.33333 16.0661 3.46503 16.3005 3.69945C16.535 3.93387 16.6667 4.25181 16.6667 4.58333V10H11.6667V10.8333H16.6667V15.4167C16.6667 15.7482 16.535 16.0661 16.3005 16.3005C16.0661 16.535 15.7482 16.6667 15.4167 16.6667H13.2883V17.5H15.4167C15.9692 17.5 16.4991 17.2805 16.8898 16.8898C17.2805 16.4991 17.5 15.9692 17.5 15.4167V4.58333C17.5 4.0308 17.2805 3.5009 16.8898 3.11019C16.4991 2.71949 15.9692 2.5 15.4167 2.5Z"/></svg>Помещения</button>
+        <button class="sm-tab" onclick="toast('Раздел «Замеры»')"><svg viewBox="0 0 20 20" fill="currentColor" stroke="currentColor" stroke-width="0.6667" stroke-linecap="round" stroke-linejoin="round"><path d="M15.4167 2.5H4.58333C4.0308 2.5 3.5009 2.71949 3.11019 3.11019C2.71949 3.5009 2.5 4.0308 2.5 4.58333V15.4167C2.5 15.9692 2.71949 16.4991 3.11019 16.8898C3.5009 17.2805 4.0308 17.5 4.58333 17.5H11.6392V16.6667H10V12.5H9.16667V16.6667H4.58333C4.25181 16.6667 3.93387 16.535 3.69945 16.3005C3.46503 16.0661 3.33333 15.7482 3.33333 15.4167V13.3333H7.91667V12.5H3.33333V8.33333H5.7975V7.5H3.33333V4.58333C3.33333 4.25181 3.46503 3.93387 3.69945 3.69945C3.93387 3.46503 4.25181 3.33333 4.58333 3.33333H9.16667V7.5H7.5V8.33333H9.16667V10.8333H10V3.33333H15.4167C15.7482 3.33333 16.0661 3.46503 16.3005 3.69945C16.535 3.93387 16.6667 4.25181 16.6667 4.58333V10H11.6667V10.8333H16.6667V15.4167C16.6667 15.7482 16.535 16.0661 16.3005 16.3005C16.0661 16.535 15.7482 16.6667 15.4167 16.6667H13.2883V17.5H15.4167C15.9692 17.5 16.4991 17.2805 16.8898 16.8898C17.2805 16.4991 17.5 15.9692 17.5 15.4167V4.58333C17.5 4.0308 17.2805 3.5009 16.8898 3.11019C16.4991 2.71949 15.9692 2.5 15.4167 2.5Z"/></svg>Замеры</button>
         <button class="sm-tab" onclick="toast('Раздел «Финансы»')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z"/></svg>Финансы</button>
         <button class="sm-tab" onclick="toast('Раздел «Вложения»')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13"/></svg>Вложения</button>
       </div>
@@ -1965,7 +2042,7 @@ function zamerBarHTML(steps,cur){
 function renderZamerSteps(){ var c=document.getElementById("zamer-steps"); if(c) c.innerHTML=zamerBarHTML(zamerStepsArr(), zamerStep-1); }
 function showZamerStep(n){ zamerStep=n; document.getElementById("zamer-step1").style.display=n===1?"flex":"none"; document.getElementById("zamer-step2").style.display=n===2?"flex":"none"; document.getElementById("zamer-foot1").style.display=n===1?"block":"none"; document.getElementById("zamer-foot2").style.display=n===2?"block":"none"; renderZamerSteps(); var s=document.getElementById(n===2?"zamer-step2":"zamer-step1"); if(s)s.scrollTop=0; }
 function zamerGoStep(n){ var edit=(zamerEditIdx!=null); var max=zamerStepsArr().length; if(n<1||n>max||n===zamerStep) return; if(edit||n<zamerStep) showZamerStep(n); }
-function openZamerDrawer(){ document.getElementById("zamer-overlay").classList.add("on"); document.getElementById("zamer-drawer").classList.add("on"); var n=document.getElementById("zamer-name"); if(n)n.value="Помещение "+String((typeof crZamers!=="undefined"?crZamers.length:0)+1).padStart(2,"0"); var tt=document.getElementById("zamer-title"); if(tt)tt.textContent="Создание замера"; selectZamerOpt("own"); showZamerStep(1); zamerEditIdx=null; }
+function openZamerDrawer(){ zamerTargetObjId=null; document.getElementById("zamer-overlay").classList.add("on"); document.getElementById("zamer-drawer").classList.add("on"); var n=document.getElementById("zamer-name"); if(n)n.value="Помещение "+String((typeof crZamers!=="undefined"?crZamers.length:0)+1).padStart(2,"0"); var tt=document.getElementById("zamer-title"); if(tt)tt.textContent="Создание замера"; selectZamerOpt("own"); showZamerStep(1); zamerEditIdx=null; }
 function closeZamerDrawer(){ document.getElementById("zamer-overlay").classList.remove("on"); document.getElementById("zamer-drawer").classList.remove("on"); }
 function selectZamerOpt(opt){ zamerOpt=opt; [["own","zamer-opt-own","zamer-radio-own"],["bro","zamer-opt-bro","zamer-radio-bro"]].forEach(function(t){ var active=t[0]===opt; var el=document.getElementById(t[1]); var rd=document.getElementById(t[2]); if(!el||!rd)return; el.style.border=active?"1px solid var(--yellow)":"1px solid var(--base300)"; el.classList.toggle("active",active); rd.style.border=active?"1px solid var(--yellow)":"1px solid rgba(22,22,22,.2)"; var dot=rd.querySelector("span"); if(dot){ dot.style.display=active?"block":"none"; if(active){ dot.style.width="12px"; dot.style.height="12px"; dot.style.borderRadius="50%"; dot.style.background="var(--yellow)"; } } }); renderZamerSteps(); }
 function submitZamer(){ if(zamerOpt==="own"){ showZamerStep(2); } else { closeZamerDrawer(); toast("Расчёт BRO — шаги 2–4 в разработке"); } }
@@ -1990,7 +2067,7 @@ function zamerRowHTML(z,i){
 function renderCrZamers(){ var e=document.getElementById("cr-zamer-empty"),f=document.getElementById("cr-zamer-filled"),l=document.getElementById("cr-zamers-list"); if(!e||!f||!l)return; if(!crZamers.length){ e.style.display="block"; f.style.display="none"; l.innerHTML=""; return; } e.style.display="none"; f.style.display="block"; l.innerHTML=crZamers.map(zamerRowHTML).join(""); }
 function deleteCrZamer(i){ crZamers.splice(i,1); renderCrZamers(); notify("Замер удалён"); }
 function editCrZamer(i){ var z=crZamers[i]; if(!z)return; zamerEditIdx=i; var tt=document.getElementById("zamer-title"); if(tt)tt.textContent="Редактирование замера"; document.getElementById("zamer-overlay").classList.add("on"); document.getElementById("zamer-drawer").classList.add("on"); selectZamerOpt("own"); var n=document.getElementById("zamer-name"); if(n)n.value=z.name; showZamerStep(2); setZamerField("Площадь пола",z.floor); setZamerField("Площадь стен",z.walls); setZamerField("Высота помещения",z.height); }
-function zamerSave(){ var isEdit=(zamerEditIdx!=null && crZamers[zamerEditIdx]); var z={name:(document.getElementById("zamer-name").value.trim()||"Помещение"),floor:getZamerField("Площадь пола"),walls:getZamerField("Площадь стен"),height:getZamerField("Высота помещения")}; if(isEdit){ crZamers[zamerEditIdx]=z; } else { crZamers.push(z); } zamerEditIdx=null; closeZamerDrawer(); renderCrZamers(); notify(isEdit?"Замер сохранён":"Замер добавлен"); }
+function zamerSave(){ if(zamerTargetObjId){ var _o=objects.find(function(x){return x.id===zamerTargetObjId;}); var _room=getZamerAll(); if(_o){ _o.userRooms=(_o.userRooms||[]); _o.userRooms.push(_room); } zamerTargetObjId=null; closeZamerDrawer(); if(_o && currentObj && _o.id===currentObj.id){ var _e=document.getElementById("so-rooms-empty"),_w=document.getElementById("so-rooms-wrap"); if(_e)_e.style.display="none"; if(_w)_w.style.display="grid"; renderRoomsNav(); selectRoom(roomsFor(_o).length-1); } notify("Замер добавлен"); return; } var isEdit=(zamerEditIdx!=null && crZamers[zamerEditIdx]); var z={name:(document.getElementById("zamer-name").value.trim()||"Помещение"),floor:getZamerField("Площадь пола"),walls:getZamerField("Площадь стен"),height:getZamerField("Высота помещения")}; if(isEdit){ crZamers[zamerEditIdx]=z; } else { crZamers.push(z); } zamerEditIdx=null; closeZamerDrawer(); renderCrZamers(); notify(isEdit?"Замер сохранён":"Замер добавлен"); }
 /* ── drawer radio logic ── */
 let drawerOpt = 'manual';
 let drawerTargetObjId = null;
@@ -2401,9 +2478,240 @@ function openScreenObject(obj){
     '</div>';
   document.getElementById('screen-object').style.display='block';
   document.getElementById('screen-object').scrollTop=0;
+  objSmetaQuery='';
+  var _soSearch=document.querySelector('#so-tab-smetas .search-box input'); if(_soSearch) _soSearch.value='';
+  setObjTab('general');
   setSideActive('objects');
 }
 function openObjById(id){ var o=objects.find(function(x){return x.id===id}); if(o) openScreenObject(o); }
+/* ── Object page: tabs + smetas list ── */
+var objSmetaView='cards', objSmetaQuery='';
+function setObjTab(tab){
+  var scr=document.getElementById('screen-object');
+  var btns=scr.querySelectorAll('.so-tab');
+  var gen=document.getElementById('so-tab-general');
+  var sm=document.getElementById('so-tab-smetas');
+  var rm=document.getElementById('so-tab-rooms');
+  var cb=document.getElementById('so-create-smeta-btn');
+  var ab=document.getElementById('so-add-room-btn');
+  if(btns[0]) btns[0].classList.toggle('on', tab==='general');
+  if(btns[1]) btns[1].classList.toggle('on', tab==='smetas');
+  if(btns[2]) btns[2].classList.toggle('on', tab==='rooms');
+  if(gen) gen.style.display=(tab==='general')?'flex':'none';
+  if(sm) sm.style.display=(tab==='smetas')?'block':'none';
+  if(rm) rm.style.display=(tab==='rooms')?'block':'none';
+  if(cb) cb.style.display=(tab==='smetas')?'flex':'none';
+  if(ab) ab.style.display=(tab==='rooms')?'flex':'none';
+  soSetIcons(tab);
+  if(tab==='smetas') renderObjSmetas();
+  if(tab==='rooms') renderObjRooms();
+}
+function createSmetaForObj(){ if(currentObj) openDrawer(currentObj.id); }
+
+/* ── Object page: Замеры tab ── */
+var EX_ROOMS=[
+ {name:'Кухня-гостиная',main:{h:'2.8',vol:'55.19',fa:'19.71',fp:'17.76',ca:'19.71',cp:'17.76',wa:'46.18'},doors:{n:'1',oa:'1.4',op:'5.4',sa:'0.42',sp:'4.7'},win:{n:'1',oa:'2.15',op:'5.88',sa:'0.86',sp:'4.32'},plan:{w:4500,h:4380,doors:['top'],wins:['bottom']}},
+ {name:'Прихожая',main:{h:'2.8',vol:'15.18',fa:'5.42',fp:'9.42',ca:'5.42',cp:'9.42',wa:'21.78'},doors:{n:'3',oa:'4.59',op:'16.66',sa:'1.99',sp:'14.39'},win:{n:'-',oa:'-',op:'-',sa:'-',sp:'-'},plan:{w:2000,h:2710,doors:['top','right','bottom'],wins:[]}},
+ {name:'Санузел',main:{h:'2.8',vol:'17.83',fa:'6.37',fp:'10.12',ca:'6.37',cp:'10.12',wa:'26.94'},doors:{n:'1',oa:'1.4',op:'5.4',sa:'0.42',sp:'4.7'},win:{n:'-',oa:'-',op:'-',sa:'-',sp:'-'},plan:{w:2350,h:2710,doors:['left'],wins:[]}},
+ {name:'Гостиная',main:{h:'-',vol:'-',fa:'-',fp:'-',ca:'-',cp:'-',wa:'-'},doors:{n:'-',oa:'-',op:'-',sa:'-',sp:'-'},win:{n:'-',oa:'-',op:'-',sa:'-',sp:'-'},plan:{w:5000,h:1800,doors:[],wins:[],nodim:true}}
+];
+var EX_SUMMARY={main:{h:'2.8',vol:'88.2',fa:'31.53',fp:'38.17',ca:'31.53',cp:'38.17',wa:'94.9'},doors:{n:'5',oa:'7.39',op:'27.46',sa:'2.83',sp:'23.79'},win:{n:'1',oa:'2.15',op:'5.88',sa:'0.86',sp:'4.32'}};
+var roomSel=-1;
+var ICO_RULER='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 8.25A1.5 1.5 0 0 1 6 6.75h12a1.5 1.5 0 0 1 1.5 1.5v7.5A1.5 1.5 0 0 1 18 17.25H6a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M8.25 6.75v3M12 6.75v4M15.75 6.75v3"/></svg>';
+var ICO_DOOR='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V4.5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1V21"/><path d="M4 21h16"/><path d="M14.25 12v1.5"/></svg>';
+var ICO_WIN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M4 12h16M12 4v16"/></svg>';
+var ICO_PENCIL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897z"/><path d="M19.5 7.125 16.862 4.487"/></svg>';
+/* tab icons: solid (active) / outline (inactive) */
+var SO_ICONS={
+ general:{out:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>',
+   sol:'<svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 0 1 .67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 1 1-.671-1.34l.04-.022ZM12 9a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd"/></svg>'},
+ smetas:{out:'<svg viewBox="0 0 20 20" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 4.6875C1.25 3.82455 1.94956 3.125 2.8125 3.125H17.1875C18.0504 3.125 18.75 3.82456 18.75 4.6875V15.3125C18.75 16.1754 18.0504 16.875 17.1875 16.875H2.8125C1.94955 16.875 1.25 16.1754 1.25 15.3125V4.6875ZM2.5 4.6875V5.9375C2.5 6.11009 2.63991 6.25 2.8125 6.25H17.1875C17.3601 6.25 17.5 6.11009 17.5 5.9375V4.6875C17.5 4.51491 17.3601 4.375 17.1875 4.375H2.8125C2.63991 4.375 2.5 4.51491 2.5 4.6875ZM17.5 7.8125C17.5 7.63991 17.3601 7.5 17.1875 7.5H10.9375C10.7649 7.5 10.625 7.63991 10.625 7.8125V9.0625C10.625 9.23509 10.7649 9.375 10.9375 9.375H17.1875C17.3601 9.375 17.5 9.23509 17.5 9.0625V7.8125ZM17.5 10.9375C17.5 10.7649 17.3601 10.625 17.1875 10.625H10.9375C10.7649 10.625 10.625 10.7649 10.625 10.9375V12.1875C10.625 12.3601 10.7649 12.5 10.9375 12.5H17.1875C17.3601 12.5 17.5 12.3601 17.5 12.1875V10.9375ZM17.5 14.0625C17.5 13.8899 17.3601 13.75 17.1875 13.75H10.9375C10.7649 13.75 10.625 13.8899 10.625 14.0625V15.3125C10.625 15.4851 10.7649 15.625 10.9375 15.625H17.1875C17.3601 15.625 17.5 15.4851 17.5 15.3125V14.0625ZM9.0625 15.625C9.23509 15.625 9.375 15.4851 9.375 15.3125V14.0625C9.375 13.8899 9.23509 13.75 9.0625 13.75H2.8125C2.63991 13.75 2.5 13.8899 2.5 14.0625V15.3125C2.5 15.4851 2.63991 15.625 2.8125 15.625H9.0625ZM2.8125 12.5H9.0625C9.23509 12.5 9.375 12.3601 9.375 12.1875V10.9375C9.375 10.7649 9.23509 10.625 9.0625 10.625H2.8125C2.63991 10.625 2.5 10.7649 2.5 10.9375V12.1875C2.5 12.3601 2.63991 12.5 2.8125 12.5ZM2.8125 9.375H9.0625C9.23509 9.375 9.375 9.23509 9.375 9.0625V7.8125C9.375 7.63991 9.23509 7.5 9.0625 7.5H2.8125C2.63991 7.5 2.5 7.63991 2.5 7.8125V9.0625C2.5 9.23509 2.63991 9.375 2.8125 9.375Z" fill="currentColor"/></svg>',
+   sol:'<svg viewBox="0 0 20 20" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 4.6875C1.25 3.82455 1.94956 3.125 2.8125 3.125H17.1875C18.0504 3.125 18.75 3.82456 18.75 4.6875V15.3125C18.75 16.1754 18.0504 16.875 17.1875 16.875H2.8125C1.94955 16.875 1.25 16.1754 1.25 15.3125V4.6875ZM17.5 7.8125C17.5 7.63991 17.3601 7.5 17.1875 7.5H10.9375C10.7649 7.5 10.625 7.63991 10.625 7.8125V9.0625C10.625 9.23509 10.7649 9.375 10.9375 9.375H17.1875C17.3601 9.375 17.5 9.23509 17.5 9.0625V7.8125ZM17.5 10.9375C17.5 10.7649 17.3601 10.625 17.1875 10.625H10.9375C10.7649 10.625 10.625 10.7649 10.625 10.9375V12.1875C10.625 12.3601 10.7649 12.5 10.9375 12.5H17.1875C17.3601 12.5 17.5 12.3601 17.5 12.1875V10.9375ZM17.5 14.0625C17.5 13.8899 17.3601 13.75 17.1875 13.75H10.9375C10.7649 13.75 10.625 13.8899 10.625 14.0625V15.3125C10.625 15.4851 10.7649 15.625 10.9375 15.625H17.1875C17.3601 15.625 17.5 15.4851 17.5 15.3125V14.0625ZM9.0625 15.625C9.23509 15.625 9.375 15.4851 9.375 15.3125V14.0625C9.375 13.8899 9.23509 13.75 9.0625 13.75H2.8125C2.63991 13.75 2.5 13.8899 2.5 14.0625V15.3125C2.5 15.4851 2.63991 15.625 2.8125 15.625H9.0625ZM2.8125 12.5H9.0625C9.23509 12.5 9.375 12.3601 9.375 12.1875V10.9375C9.375 10.7649 9.23509 10.625 9.0625 10.625H2.8125C2.63991 10.625 2.5 10.7649 2.5 10.9375V12.1875C2.5 12.3601 2.63991 12.5 2.8125 12.5ZM2.8125 9.375H9.0625C9.23509 9.375 9.375 9.23509 9.375 9.0625V7.8125C9.375 7.63991 9.23509 7.5 9.0625 7.5H2.8125C2.63991 7.5 2.5 7.63991 2.5 7.8125V9.0625C2.5 9.23509 2.63991 9.375 2.8125 9.375Z" fill="currentColor"/></svg>'},
+ rooms:{out:'<svg viewBox="0 0 20 20" fill="none"><path d="M15.4167 2.5H4.58333C4.0308 2.5 3.50089 2.71949 3.11019 3.11019C2.71949 3.50089 2.5 4.0308 2.5 4.58333V15.4167C2.5 15.9692 2.71949 16.4991 3.11019 16.8898C3.50089 17.2805 4.0308 17.5 4.58333 17.5H11.6392V16.6667H10V12.5H9.16667V16.6667H4.58333C4.25181 16.6667 3.93387 16.535 3.69945 16.3005C3.46503 16.0661 3.33333 15.7482 3.33333 15.4167V13.3333H7.91667V12.5H3.33333V8.33333H5.7975V7.5H3.33333V4.58333C3.33333 4.25181 3.46503 3.93387 3.69945 3.69945C3.93387 3.46503 4.25181 3.33333 4.58333 3.33333H9.16667V7.5H7.5V8.33333H9.16667V10.8333H10V3.33333H15.4167C15.7482 3.33333 16.0661 3.46503 16.3005 3.69945C16.535 3.93387 16.6667 4.25181 16.6667 4.58333V10H11.6667V10.8333H16.6667V15.4167C16.6667 15.7482 16.535 16.0661 16.3005 16.3005C16.0661 16.535 15.7482 16.6667 15.4167 16.6667H13.2883V17.5H15.4167C15.9692 17.5 16.4991 17.2805 16.8898 16.8898C17.2805 16.4991 17.5 15.9692 17.5 15.4167V4.58333C17.5 4.0308 17.2805 3.50089 16.8898 3.11019C16.4991 2.71949 15.9692 2.5 15.4167 2.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+   sol:'<svg viewBox="0 0 20 20" fill="none"><path d="M8.85547 7.10059H7.52246C7.33856 7.10082 7.18945 7.24964 7.18945 7.43359V8.2666C7.18972 8.45033 7.33873 8.60035 7.52246 8.60059H8.85547V10.5596C8.8557 10.7433 9.0057 10.8933 9.18945 10.8936H10.0225C10.2064 10.8936 10.3552 10.7435 10.3555 10.5596V2.56699C10.3555 2.34608 10.5346 2.16699 10.7555 2.16699H15.417C16.0578 2.16708 16.6728 2.42089 17.126 2.87402C17.5791 3.32716 17.8329 3.94219 17.833 4.58301V9.00918C17.833 9.23009 17.6539 9.40918 17.433 9.40918H12.3096C12.1255 9.40918 11.9756 9.55809 11.9756 9.74219V10.5752C11.9758 10.7591 12.1256 10.9092 12.3096 10.9092H17.433C17.6539 10.9092 17.833 11.0883 17.833 11.3092V15.417C17.8329 16.0578 17.5791 16.6728 17.126 17.126C16.6728 17.5791 16.0578 17.8329 15.417 17.833H14.3072C14.0863 17.833 13.9072 17.6539 13.9072 17.433V16.375C13.9072 16.1909 13.7583 16.042 13.5742 16.042H12.7412C12.5571 16.042 12.4072 16.1909 12.4072 16.375V17.433C12.4072 17.6539 12.2281 17.833 12.0072 17.833H10.7555C10.5346 17.833 10.3555 17.6539 10.3555 17.433V12.5752C10.3555 12.3911 10.2066 12.2422 10.0225 12.2422H9.18945C9.00555 12.2424 8.85547 12.3912 8.85547 12.5752V17.433C8.85547 17.6539 8.67638 17.833 8.45547 17.833H4.58301C3.94219 17.8329 3.32716 17.5791 2.87402 17.126C2.42089 16.6728 2.16708 16.0578 2.16699 15.417V14.1041C2.16699 13.8832 2.34608 13.7041 2.56699 13.7041H7.18945C7.3734 13.7039 7.52246 13.5541 7.52246 13.3701V12.5371C7.52244 12.3531 7.37338 12.2043 7.18945 12.2041H2.56699C2.34608 12.2041 2.16699 12.025 2.16699 11.8041V9.00059C2.16699 8.77967 2.34608 8.60059 2.56699 8.60059H5.4209C5.60445 8.60014 5.75364 8.4502 5.75391 8.2666V7.43359C5.75391 7.24978 5.60461 7.10104 5.4209 7.10059H2.56699C2.34608 7.10059 2.16699 6.9215 2.16699 6.70059V4.58301C2.16708 3.94219 2.42089 3.32716 2.87402 2.87402C3.32716 2.42089 3.94219 2.16708 4.58301 2.16699H8.45547C8.67638 2.16699 8.85547 2.34608 8.85547 2.56699V7.10059Z" fill="currentColor"/></svg>'}
+};
+function soSetIcons(active){
+  var btns=document.querySelectorAll('#screen-object .so-tab');
+  [['general',0],['smetas',1],['rooms',2]].forEach(function(p){
+    var b=btns[p[1]]; if(!b) return; var svg=b.querySelector('svg'); if(!svg) return;
+    svg.outerHTML=(p[0]===active)?SO_ICONS[p[0]].sol:SO_ICONS[p[0]].out;
+  });
+}
+function objHasRooms(o){ return !!(o && (o.id===1 || o.name==='Объект-пример')); }
+function roomsFor(o){ var base=objHasRooms(o)?EX_ROOMS:[]; return base.concat((o&&o.userRooms)?o.userRooms:[]); }
+function numV(v){ var n=parseFloat(String(v).replace(',','.')); return isNaN(n)?0:n; }
+function computeSummary(rooms){
+  var s={h:'',vol:0,fa:0,fp:0,ca:0,cp:0,wa:0},d={n:0,oa:0,op:0,sa:0,sp:0},w={n:0,oa:0,op:0,sa:0,sp:0};
+  rooms.forEach(function(r){
+    if(!s.h && r.main.h && r.main.h!=='-') s.h=r.main.h;
+    s.vol+=numV(r.main.vol); s.fa+=numV(r.main.fa); s.fp+=numV(r.main.fp); s.ca+=numV(r.main.ca); s.cp+=numV(r.main.cp); s.wa+=numV(r.main.wa);
+    d.n+=numV(r.doors.n); d.oa+=numV(r.doors.oa); d.op+=numV(r.doors.op); d.sa+=numV(r.doors.sa); d.sp+=numV(r.doors.sp);
+    w.n+=numV(r.win.n); w.oa+=numV(r.win.oa); w.op+=numV(r.win.op); w.sa+=numV(r.win.sa); w.sp+=numV(r.win.sp);
+  });
+  function R(x){ return String(Math.round(x*100)/100); }
+  return {main:{h:s.h||'-',vol:R(s.vol),fa:R(s.fa),fp:R(s.fp),ca:R(s.ca),cp:R(s.cp),wa:R(s.wa)},
+          doors:{n:R(d.n),oa:R(d.oa),op:R(d.op),sa:R(d.sa),sp:R(d.sp)},
+          win:{n:R(w.n),oa:R(w.oa),op:R(w.op),sa:R(w.sa),sp:R(w.sp)}};
+}
+function summaryFor(o){ if(objHasRooms(o)) return EX_SUMMARY; return computeSummary(roomsFor(o)); }
+var zamerTargetObjId=null;
+function addRoomForObj(){
+  if(!currentObj) return;
+  openZamerDrawer();
+  zamerTargetObjId=currentObj.id;
+  var n=document.getElementById('zamer-name');
+  if(n) n.value='Помещение '+String(roomsFor(currentObj).length+1).padStart(2,'0');
+}
+function getZamerAll(){
+  var ins=document.querySelectorAll('#zamer-step2 input[inputmode="decimal"]');
+  function d(i){ var v=ins[i]?String(ins[i].value).trim():''; return v||'-'; }
+  var note=''; var nt=document.getElementById('zamer-note'); if(nt) note=nt.value.trim();
+  return {name:(document.getElementById('zamer-name').value.trim()||'Помещение'),
+    main:{h:d(0),vol:d(1),fa:d(2),fp:d(3),ca:d(4),cp:d(5),wa:d(6)},
+    doors:{n:d(7),oa:d(8),op:d(9),sa:d(10),sp:d(11)},
+    win:{n:d(12),oa:d(13),op:d(14),sa:d(15),sp:d(16)},
+    note:note, plan:null};
+}
+function renderObjRooms(){
+  var o=currentObj; if(!o) return;
+  var empty=document.getElementById('so-rooms-empty');
+  var wrap=document.getElementById('so-rooms-wrap');
+  if(!roomsFor(o).length){ if(empty)empty.style.display='block'; if(wrap)wrap.style.display='none'; return; }
+  if(empty)empty.style.display='none'; if(wrap)wrap.style.display='grid';
+  roomSel=-1; renderRoomsNav(); selectRoom(-1);
+}
+function renderRoomsNav(){
+  var nav=document.getElementById('so-rooms-nav'); if(!nav) return;
+  var items=[{name:'Сводная информация',sum:true}].concat(roomsFor(currentObj));
+  var h='';
+  items.forEach(function(it,i){
+    var idx=i-1; var on=(idx===roomSel);
+    h+='<button class="room-nav-item'+(on?' on':'')+'" onclick="selectRoom('+idx+')">'+
+       '<span class="rn-name">'+esc(it.name)+'</span>'+
+       (it.sum?'':'<span class="rn-dots" onclick="event.stopPropagation();toast(\'Меню замера\')">'+iA('dots',16,16)+'</span>')+
+       '</button>';
+  });
+  nav.innerHTML=h;
+}
+function selectRoom(idx){
+  roomSel=idx; renderRoomsNav();
+  var data=(idx===-1)?summaryFor(currentObj):roomsFor(currentObj)[idx];
+  var d=document.getElementById('so-room-detail'); if(d) d.innerHTML=roomDetailHTML(idx,data);
+  var s=document.getElementById('so-room-side'); if(s) s.innerHTML=roomSideHTML(idx);
+}
+function unitHTML(u){ if(u==='м2') return 'м<sup>2</sup>'; if(u==='м3') return 'м<sup>3</sup>'; return u; }
+function valHTML(v,u){ return '<span class="rv-val">'+esc(String(v))+' '+unitHTML(u)+'</span>'; }
+function rvPair(label,v,u){ return '<div class="rv-pair"><span class="rv-l">'+label+'</span>'+valHTML(v,u)+'</div>'; }
+function rvRow(a,b){ return '<div class="rv-row">'+a+(b||'<span></span>')+'</div>'; }
+function roomSection(ico,label,rows){ return '<div class="rsec"><div class="rsec-chip">'+ico+'<span>'+label+'</span></div><div class="rsec-vals">'+rows+'</div></div>'; }
+function roomDetailHTML(idx,data){
+  var isSum=(idx===-1);
+  var title=isSum?'Сводная информация':(data.name||'Помещение');
+  var head='<div class="rd-head"><span class="rd-title">'+esc(title)+'</span>'+
+    (isSum?'':'<div class="rd-acts"><button class="rd-edit" onclick="toast(\'Редактирование замера\')">'+ICO_PENCIL+'Редактировать</button><button class="rd-dots" onclick="toast(\'Меню замера\')">'+iA('dots',18,18)+'</button></div>')+
+    '</div>';
+  var m=data.main,d=data.doors,w=data.win;
+  var mr=rvRow(rvPair('Высота помещения',m.h,'м'),rvPair('Объем',m.vol,'м3'))+
+    rvRow(rvPair('Площадь пола',m.fa,'м2'),rvPair('Периметр пола',m.fp,'м'))+
+    rvRow(rvPair('Площадь потолка',m.ca,'м2'),rvPair('Периметр потолка',m.cp,'м'))+
+    rvRow(rvPair('Площадь стен',m.wa,'м2'),'');
+  var dr=rvRow(rvPair('Количество',d.n,'шт'),'')+
+    rvRow(rvPair('Площадь дверных проёмов',d.oa,'м2'),rvPair('Периметр дверных проёмов',d.op,'м'))+
+    rvRow(rvPair('Площадь откосов',d.sa,'м2'),rvPair('Периметр откосов',d.sp,'м'));
+  var wr=rvRow(rvPair('Количество',w.n,'шт'),'')+
+    rvRow(rvPair('Площадь оконных проёмов',w.oa,'м2'),rvPair('Периметр оконных проёмов',w.op,'м'))+
+    rvRow(rvPair('Площадь откосов',w.sa,'м2'),rvPair('Периметр откосов',w.sp,'м'));
+  return head+roomSection(ICO_RULER,'Основное',mr)+roomSection(ICO_DOOR,'Двери',dr)+roomSection(ICO_WIN,'Окна',wr);
+}
+function planMarker(edge,x,y,rw,rh,type){
+  var win=(type==='win'); var bw=win?30:22,bh=12,cx,cy;
+  if(edge==='top'){cx=x+rw/2;cy=y;} else if(edge==='bottom'){cx=x+rw/2;cy=y+rh;} else if(edge==='left'){cx=x;cy=y+rh/2;} else {cx=x+rw;cy=y+rh/2;}
+  var mx=cx-bw/2,my=cy-bh/2,inner;
+  if(win){
+    var gx=mx+4,gy=my+(bh-7)/2;
+    inner='<rect x="'+gx+'" y="'+gy+'" width="7" height="7" fill="none" stroke="#1a1a1a" stroke-width="0.6"/><path d="M'+(gx+3.5)+' '+gy+'V'+(gy+7)+'M'+gx+' '+(gy+3.5)+'H'+(gx+7)+'" stroke="#1a1a1a" stroke-width="0.6"/><text x="'+(mx+bw-3)+'" y="'+(cy+2.6)+'" font-size="7" fill="#1a1a1a" text-anchor="end">x1</text>';
+  } else {
+    inner='<text x="'+cx+'" y="'+(cy+2.6)+'" font-size="7" fill="#1a1a1a" text-anchor="middle">Д x1</text>';
+  }
+  return '<g><rect x="'+mx+'" y="'+my+'" width="'+bw+'" height="'+bh+'" rx="1.5" fill="#fff" stroke="#1a1a1a" stroke-width="0.6"/>'+inner+'</g>';
+}
+function planSVG(plan,big){
+  if(!plan||!plan.w||!plan.h){ return '<svg viewBox="0 0 120 70" style="width:100%;height:auto;display:block"><rect x="6" y="6" width="108" height="58" rx="2" fill="#FBF1D9" stroke="#1a1a1a" stroke-width="1"/></svg>'; }
+  var aspect=plan.w/plan.h, box=big?190:54, rw,rh;
+  if(aspect>=1){ rw=box; rh=box/aspect; } else { rh=box; rw=box*aspect; }
+  var pad=big?38:8;
+  var W=rw+pad*2,H=rh+pad*2,x=pad,y=pad;
+  var s='<svg viewBox="0 0 '+W.toFixed(1)+' '+H.toFixed(1)+'" style="width:100%;height:auto;display:block">';
+  s+='<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+rw.toFixed(1)+'" height="'+rh.toFixed(1)+'" fill="#FBF1D9" stroke="#1a1a1a" stroke-width="'+(big?1.2:1)+'"/>';
+  if(big){
+    if(!plan.nodim){
+      var cxw=(x+rw/2), lx=(x-12), rxv=(x+rw+13), cyh=(y+rh/2);
+      s+='<text x="'+cxw.toFixed(1)+'" y="'+(y-9).toFixed(1)+'" font-size="9" fill="#888" text-anchor="middle">'+plan.w+'</text>';
+      s+='<text x="'+cxw.toFixed(1)+'" y="'+(y+rh+17).toFixed(1)+'" font-size="9" fill="#888" text-anchor="middle">'+plan.w+'</text>';
+      s+='<text x="'+lx.toFixed(1)+'" y="'+cyh.toFixed(1)+'" font-size="9" fill="#888" text-anchor="middle" transform="rotate(-90 '+lx.toFixed(1)+' '+cyh.toFixed(1)+')">'+plan.h+'</text>';
+      s+='<text x="'+rxv.toFixed(1)+'" y="'+cyh.toFixed(1)+'" font-size="9" fill="#888" text-anchor="middle" transform="rotate(-90 '+rxv.toFixed(1)+' '+cyh.toFixed(1)+')">'+plan.h+'</text>';
+    }
+    (plan.doors||[]).forEach(function(e){ s+=planMarker(e,x,y,rw,rh,'door'); });
+    (plan.wins||[]).forEach(function(e){ s+=planMarker(e,x,y,rw,rh,'win'); });
+  }
+  s+='</svg>'; return s;
+}
+function roomSideHTML(idx){
+  var rooms=roomsFor(currentObj);
+  var isSum=(idx===-1);
+  var withPlan=rooms.filter(function(r){return r.plan&&r.plan.w;});
+  var cnt,big,thumbs,room;
+  if(isSum){ cnt=withPlan.length; big=withPlan.length?withPlan[0].plan:null; thumbs=withPlan.map(function(r){return r.plan;}); }
+  else { room=rooms[idx]; var hp=(room&&room.plan&&room.plan.w); cnt=hp?1:0; big=hp?room.plan:null; thumbs=hp?[room.plan]:[]; }
+  var imgInner=big?('<div class="rplan-big">'+planSVG(big,true)+'</div>'):'<div class="rplan-empty">Изображения не добавлены</div>';
+  var thumbHTML=thumbs.length?('<div class="rthumbs">'+thumbs.map(function(p,i){return '<div class="rthumb'+(i===0?' on':'')+'">'+planSVG(p,false)+'</div>';}).join('')+'</div>'):'';
+  var imgs='<div class="rside-card"><div class="rside-h">Изображения <span class="rside-c">'+cnt+'</span></div>'+imgInner+thumbHTML+'</div>';
+  var notes;
+  if(isSum){ notes='<div class="rside-card"><div class="rside-h">Заметки</div></div>'; }
+  else {
+    var note=(room&&room.note)?room.note:'';
+    if(note){ notes='<div class="rside-card"><div class="rside-h" style="margin-bottom:12px">Заметка</div><div style="font-size:14px;line-height:20px;color:var(--ink);white-space:pre-wrap">'+esc(note)+'</div></div>'; }
+    else { notes='<div class="rside-card"><div class="rside-h" style="margin-bottom:12px">Заметка</div><div style="font-size:14px;line-height:20px;color:var(--base-content)">Пока ничего не добавлено, <button onclick="toast(\'Добавление заметки\')" style="color:var(--accent);font-weight:600">нажмите</button>, чтобы добавить</div></div>'; }
+  }
+  return imgs+notes;
+}
+
+function filterObjSmetas(q){ objSmetaQuery=(q||'').toLowerCase(); renderObjSmetas(); }
+function setObjSmetaView(v){
+  objSmetaView=v;
+  var gb=document.getElementById('so-view-grid'), lb=document.getElementById('so-view-list');
+  if(gb){ gb.classList.toggle('on', v==='cards'); gb.innerHTML=(v==='cards')?VIEW_ICONS.gridS:VIEW_ICONS.gridO; }
+  if(lb){ lb.classList.toggle('on', v==='list'); lb.innerHTML=(v==='list')?VIEW_ICONS.listS:VIEW_ICONS.listO; }
+  renderObjSmetas();
+}
+function smetaListRow(s,oid,idx){
+  return '<div class="scard" style="flex-direction:row;align-items:center;justify-content:space-between;gap:16px" onclick="openSmetaByOid('+oid+','+idx+')">'+
+    '<div style="min-width:0">'+
+      '<div style="display:flex;align-items:center;gap:4px;opacity:.6;margin-bottom:4px"><span style="display:inline-flex;align-items:center;gap:4px;font-size:12px;line-height:12px;color:var(--base-content)">'+iA('cal',14,14)+'<span>Создана '+esc(s.created)+'</span></span></div>'+
+      '<div style="font-size:16px;font-weight:700;line-height:24px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(s.name)+'</div>'+
+    '</div>'+
+    '<div style="display:flex;align-items:center;gap:20px;flex-shrink:0">'+
+      '<span class="badge'+(s.status==='approve'?' approve':'')+'">Новая</span>'+
+      '<div style="text-align:right"><div style="font-size:12px;line-height:12px;color:var(--base-content);opacity:.6;margin-bottom:4px">Сумма для заказчика</div><div style="font-size:16px;font-weight:700;line-height:20px;color:var(--ink);white-space:nowrap">'+fmt(s.client)+'</div></div>'+
+      '<div class="scard-acts"><button title="Меню" onclick="event.stopPropagation();openCardMenu(event,\'smeta\',{objId:'+oid+',smetaIdx:'+idx+'})">'+iA('dots',20,20)+'</button></div>'+
+    '</div>'+
+  '</div>';
+}
+function renderObjSmetas(){
+  var o=currentObj; if(!o) return;
+  var box=document.getElementById('so-smetas-list'); if(!box) return;
+  var all=(o.smetas||[]).map(function(s,i){return {s:s,i:i};});
+  var items=objSmetaQuery?all.filter(function(x){return String(x.s.name).toLowerCase().indexOf(objSmetaQuery)>-1;}):all;
+  if(!items.length){
+    box.innerHTML='<div style="background:#fff;border:.5px solid var(--base300);border-radius:var(--r);padding:40px 20px;text-align:center;color:var(--accent);opacity:.7;font-size:14px">'+((o.smetas&&o.smetas.length)?'Сметы не найдены':'В объекте пока нет смет. Нажмите «Создать смету».')+'</div>';
+    return;
+  }
+  if(objSmetaView==='cards'){
+    box.innerHTML=items.map(function(x){return smetaCard(x.s,o.id,x.i);}).join('');
+  } else {
+    box.innerHTML=items.map(function(x){return smetaListRow(x.s,o.id,x.i);}).join('');
+  }
+}
 function openSmetasFromObject(){
   if(!currentObj) return;
   if(currentObj.smetas && currentObj.smetas.length>1){ openScreenSmetasList(currentObj); }
