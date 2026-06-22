@@ -178,6 +178,8 @@ body.side-collapsed .sidebar:not(:hover) .tree-l1,body.side-collapsed .sidebar:n
 .yb:hover{filter:brightness(.95) drop-shadow(var(--shadow-btn))!important}
 .gb:hover{filter:brightness(.95) drop-shadow(var(--shadow-btn))!important}
 .add-ghost:hover{background:var(--base200)}
+.cr-footer{position:sticky;bottom:0;background:#fff;display:grid;grid-template-columns:1fr 1fr;gap:16px;z-index:5;padding:16px;border-radius:16px}
+.cr-footer.stuck{padding:16px 192px;margin-left:-192px;margin-right:-192px;border-radius:0;box-shadow:0 -8px 20px rgba(22,22,22,.05)}
 .uitab{cursor:pointer}
 .uitab.on{cursor:default}
 .uitab:not(.on):hover{background:rgba(255,255,255,.6)!important}
@@ -926,6 +928,17 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
   </div>
 </div>
 
+<!-- ═══ PREVIEW MODAL (предпросмотр сметы/замера) ═══ -->
+<div id="preview-overlay" onclick="if(event.target===this)closePreview()" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.5);align-items:center;justify-content:center;padding:20px">
+  <div style="background:#fff;border-radius:16px;width:100%;max-width:520px;max-height:85vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 24px;border-bottom:1px solid var(--base300)">
+      <span id="preview-title" style="font-size:18px;font-weight:700;line-height:24px;color:var(--ink)">Предпросмотр</span>
+      <button onclick="closePreview()" title="Закрыть" style="width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--ink);flex-shrink:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div id="preview-body" style="padding:24px;overflow-y:auto"></div>
+  </div>
+</div>
+
 <!-- ═══ SCREEN: СОЗДАНИЕ ОБЪЕКТА (node 2233:22447) ═══ -->
 <div id="screen-create" style="display:none;position:fixed;top:0;left:var(--side-w);right:0;bottom:0;z-index:30;transition:left .25s ease;background:#f4f4f6;overflow-y:auto">
   <!-- Navbar -->
@@ -948,7 +961,7 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
       <div class="nb-avatar">ВБ</div>
     </div>
   </header>
-  <div style="padding:28px 192px 0;max-width:1440px;margin:0 auto">
+  <div id="cr-content" style="padding:28px 192px 0;max-width:1440px;margin:0 auto">
     <h1 style="font-size:30px;font-weight:700;line-height:36px;color:var(--ink);margin-bottom:28px">Создание</h1>
 
     <div style="display:flex;flex-direction:column;gap:12px">
@@ -956,7 +969,7 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
       <div style="background:#fff;border:.5px solid var(--base300);border-radius:16px;overflow:visible">
         <div style="padding:24px">
           <!-- Block title -->
-          <div style="font-size:24px;font-weight:700;line-height:32px;color:var(--ink);margin-bottom:12px">Объект</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="color:var(--accent);display:flex;flex-shrink:0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"/></svg></span><span style="font-size:24px;font-weight:700;line-height:32px;color:var(--ink)">Объект</span></div>
 
           <!-- Fields grid (new object) -->
           <div id="cr-new-fields">
@@ -999,22 +1012,30 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
                 </button>
               </div>
             </div>
-            <!-- Info hint (Figma node 2320:8827) -->
-            <div style="border:1px solid var(--base300);border-radius:var(--r);display:flex;align-items:center;gap:8px;padding:12px 16px">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="flex-shrink:0;color:var(--accent)"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
-              <span style="font-size:14px;line-height:20px;color:var(--primary-content);opacity:.6">Ваши сметы привязываются к объекту, на котором производятся работы</span>
-            </div>
           </div>
 
 
         </div>
       </div>
 
+      <!-- Замер: empty -->
+      <div id="cr-zamer-empty" style="background:#fff;border-radius:16px;padding:28px 24px">
+        <button class="add-ghost" onclick="openZamerDrawer()" style="width:100%;height:64px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r);border:1px solid var(--base300);color:#6c7493;font-size:18px;font-weight:600">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>Добавить новый замер
+        </button>
+      </div>
+      <!-- Замер: filled -->
+      <div id="cr-zamer-filled" style="display:none;background:#fff;border:.5px solid var(--base300);border-radius:16px;padding:24px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="color:var(--accent);display:flex;flex-shrink:0"><svg width="24" height="24" viewBox="0 0 20 20" fill="none"><path d="M15.4167 2.5H4.58333C4.0308 2.5 3.50089 2.71949 3.11019 3.11019C2.71949 3.50089 2.5 4.0308 2.5 4.58333V15.4167C2.5 15.9692 2.71949 16.4991 3.11019 16.8898C3.50089 17.2805 4.0308 17.5 4.58333 17.5H11.6392V16.6667H10V12.5H9.16667V16.6667H4.58333C4.25181 16.6667 3.93387 16.535 3.69945 16.3005C3.46503 16.0661 3.33333 15.7482 3.33333 15.4167V13.3333H7.91667V12.5H3.33333V8.33333H5.7975V7.5H3.33333V4.58333C3.33333 4.25181 3.46503 3.93387 3.69945 3.69945C3.93387 3.46503 4.25181 3.33333 4.58333 3.33333H9.16667V7.5H7.5V8.33333H9.16667V10.8333H10V3.33333H15.4167C15.7482 3.33333 16.0661 3.46503 16.3005 3.69945C16.535 3.93387 16.6667 4.25181 16.6667 4.58333V10H11.6667V10.8333H16.6667V15.4167C16.6667 15.7482 16.535 16.0661 16.3005 16.3005C16.0661 16.535 15.7482 16.6667 15.4167 16.6667H13.2883V17.5H15.4167C15.9692 17.5 16.4991 17.2805 16.8898 16.8898C17.2805 16.4991 17.5 15.9692 17.5 15.4167V4.58333C17.5 4.0308 17.2805 3.50089 16.8898 3.11019C16.4991 2.71949 15.9692 2.5 15.4167 2.5Z" fill="currentColor" stroke="currentColor" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span style="font-size:24px;font-weight:700;line-height:32px;color:var(--ink)">Замер</span></div><div style="font-size:14px;line-height:20px;color:var(--base-content);margin-top:-6px;margin-bottom:16px">Замер сохранятся вместе с объектом</div>
+        <div id="cr-zamers-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"></div>
+        <button class="add-ghost" onclick="openZamerDrawer()" style="width:100%;height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r);border:1px solid var(--base300);color:#6c7493;font-size:16px;font-weight:600"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>Добавить ещё замер</button>
+      </div>
+
       <!-- Смета block (transforms after adding) -->
       <!-- Empty state: single "Добавить смету" button -->
-      <div id="cr-smeta-empty" style="background:#fff;border-radius:16px;padding:12px 24px">
+      <div id="cr-smeta-empty" style="background:#fff;border-radius:16px;padding:28px 24px">
         <div id="cr-smeta-empty-wrap" style="border-radius:var(--r);overflow:hidden">
-          <button class="add-ghost" onclick="openDrawerForCreate()" style="width:100%;height:64px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r);color:var(--accent);font-size:18px;font-weight:600;filter:drop-shadow(var(--shadow-btn))">
+          <button class="add-ghost" onclick="openDrawerForCreate()" style="width:100%;height:64px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r);border:1px solid var(--base300);color:#6c7493;font-size:18px;font-weight:600">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>Добавить новую смету
           </button>
         </div>
@@ -1024,38 +1045,23 @@ body.annos [data-anno]::before{content:attr(data-anno);position:absolute;left:0;
       <!-- Filled state: white card with "Смета" title, added smetа rows, "add more" (Figma node 2294:7904) -->
       <div id="cr-smeta-filled" style="display:none;background:#fff;border:.5px solid var(--base300);border-radius:16px;overflow:hidden">
         <div style="padding:24px">
-          <div style="font-size:24px;font-weight:700;line-height:32px;color:var(--ink);margin-bottom:12px">Смета</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="color:var(--accent);display:flex;flex-shrink:0"><svg width="24" height="24" viewBox="0 0 20 20" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 4.6875C1.25 3.82455 1.94956 3.125 2.8125 3.125H17.1875C18.0504 3.125 18.75 3.82456 18.75 4.6875V15.3125C18.75 16.1754 18.0504 16.875 17.1875 16.875H2.8125C1.94955 16.875 1.25 16.1754 1.25 15.3125V4.6875ZM2.5 4.6875V5.9375C2.5 6.11009 2.63991 6.25 2.8125 6.25H17.1875C17.3601 6.25 17.5 6.11009 17.5 5.9375V4.6875C17.5 4.51491 17.3601 4.375 17.1875 4.375H2.8125C2.63991 4.375 2.5 4.51491 2.5 4.6875ZM17.5 7.8125C17.5 7.63991 17.3601 7.5 17.1875 7.5H10.9375C10.7649 7.5 10.625 7.63991 10.625 7.8125V9.0625C10.625 9.23509 10.7649 9.375 10.9375 9.375H17.1875C17.3601 9.375 17.5 9.23509 17.5 9.0625V7.8125ZM17.5 10.9375C17.5 10.7649 17.3601 10.625 17.1875 10.625H10.9375C10.7649 10.625 10.625 10.7649 10.625 10.9375V12.1875C10.625 12.3601 10.7649 12.5 10.9375 12.5H17.1875C17.3601 12.5 17.5 12.3601 17.5 12.1875V10.9375ZM17.5 14.0625C17.5 13.8899 17.3601 13.75 17.1875 13.75H10.9375C10.7649 13.75 10.625 13.8899 10.625 14.0625V15.3125C10.625 15.4851 10.7649 15.625 10.9375 15.625H17.1875C17.3601 15.625 17.5 15.4851 17.5 15.3125V14.0625ZM9.0625 15.625C9.23509 15.625 9.375 15.4851 9.375 15.3125V14.0625C9.375 13.8899 9.23509 13.75 9.0625 13.75H2.8125C2.63991 13.75 2.5 13.8899 2.5 14.0625V15.3125C2.5 15.4851 2.63991 15.625 2.8125 15.625H9.0625ZM2.8125 12.5H9.0625C9.23509 12.5 9.375 12.3601 9.375 12.1875V10.9375C9.375 10.7649 9.23509 10.625 9.0625 10.625H2.8125C2.63991 10.625 2.5 10.7649 2.5 10.9375V12.1875C2.5 12.3601 2.63991 12.5 2.8125 12.5ZM2.8125 9.375H9.0625C9.23509 9.375 9.375 9.23509 9.375 9.0625V7.8125C9.375 7.63991 9.23509 7.5 9.0625 7.5H2.8125C2.63991 7.5 2.5 7.63991 2.5 7.8125V9.0625C2.5 9.23509 2.63991 9.375 2.8125 9.375Z" fill="currentColor"/></svg></span><span style="font-size:24px;font-weight:700;line-height:32px;color:var(--ink)">Смета</span></div><div style="font-size:14px;line-height:20px;color:var(--base-content);margin-top:-6px;margin-bottom:16px">Смета сохранятся вместе с объектом</div>
           <div id="cr-smetas-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"></div>
           <!-- "Добавить еще смету" — accent, 48px, Figma node 2294:8292 -->
-          <button class="add-ghost" onclick="openDrawerForCreate()" style="width:100%;height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r);color:var(--accent);font-size:16px;font-weight:600;filter:drop-shadow(var(--shadow-btn))">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>Добавить еще новую смету
+          <button class="add-ghost" onclick="openDrawerForCreate()" style="width:100%;height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r);border:1px solid var(--base300);color:#6c7493;font-size:16px;font-weight:600">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>Добавить еще смету
           </button>
         </div>
       </div>
 
-      <!-- Замер: empty -->
-      <div id="cr-zamer-empty" style="background:#fff;border-radius:16px;padding:12px 24px">
-        <button class="add-ghost" onclick="openZamerDrawer()" style="width:100%;height:64px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r);color:var(--accent);font-size:18px;font-weight:600;filter:drop-shadow(var(--shadow-btn))">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>Добавить новый замер
-        </button>
-      </div>
-      <!-- Замер: filled -->
-      <div id="cr-zamer-filled" style="display:none;background:#fff;border:.5px solid var(--base300);border-radius:16px;padding:24px">
-        <div style="font-size:24px;font-weight:700;line-height:32px;color:var(--ink);margin-bottom:12px">Замер</div>
-        <div id="cr-zamers-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px"></div>
-        <button class="add-ghost" onclick="openZamerDrawer()" style="width:100%;height:48px;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--r);color:var(--accent);font-size:16px;font-weight:600;filter:drop-shadow(var(--shadow-btn))"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4.5v15m7.5-7.5h-15"/></svg>Добавить ещё новый замер</button>
-      </div>
-
       <!-- Buttons: Отменить / Создать (sticky footer, как в дроверах) -->
-      <div style="position:sticky;bottom:0;background:#f4f4f6;padding:8px 0 0;z-index:5">
-        <div style="background:#fff;border-radius:16px;padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+      <div id="cr-footer" class="cr-footer">
         <button class="gb" onclick="goList()" style="height:48px;background:var(--base300);border-radius:var(--r);font-size:16px;font-weight:600;color:var(--ink);display:flex;align-items:center;justify-content:center;gap:8px;filter:drop-shadow(var(--shadow-btn))">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>Отменить
         </button>
         <button class="yb" onclick="submitCreate()" style="height:48px;background:var(--yellow);border-radius:var(--r);font-size:16px;font-weight:600;color:var(--primary-content);display:flex;align-items:center;justify-content:center;gap:8px;filter:drop-shadow(var(--shadow-btn))">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>Создать
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m5 13 4 4L19 7"/></svg>Создать объект
         </button>
-        </div>
       </div>
     </div>
   </div>
@@ -2064,12 +2070,12 @@ function getZamerField(lbl){ var ins=document.querySelectorAll('#zamer-step2 inp
 function setZamerField(lbl,val){ var ins=document.querySelectorAll('#zamer-step2 input[inputmode="decimal"]'); for(var i=0;i<ins.length;i++){ var l=ins[i].parentElement.querySelector("div"); if(l&&l.textContent.indexOf(lbl)===0){ ins[i].value=val||""; return; } } }
 function zamerRowHTML(z,i){
   return '<div style="background:var(--base200);border-radius:12px;padding:12px;display:flex;align-items:center;gap:12px">'+
-    '<div style="width:56px;height:56px;border-radius:8px;background:#fff;border:1px solid var(--base300);flex-shrink:0;display:grid;place-items:center"><svg width="26" height="26" viewBox="0 0 20 20" fill="none"><path d="M15.4167 2.5H4.58333C4.0308 2.5 3.50089 2.71949 3.11019 3.11019C2.71949 3.50089 2.5 4.0308 2.5 4.58333V15.4167C2.5 15.9692 2.71949 16.4991 3.11019 16.8898C3.50089 17.2805 4.0308 17.5 4.58333 17.5H11.6392V16.6667H10V12.5H9.16667V16.6667H4.58333C4.25181 16.6667 3.93387 16.535 3.69945 16.3005C3.46503 16.0661 3.33333 15.7482 3.33333 15.4167V13.3333H7.91667V12.5H3.33333V8.33333H5.7975V7.5H3.33333V4.58333C3.33333 4.25181 3.46503 3.93387 3.69945 3.69945C3.93387 3.46503 4.25181 3.33333 4.58333 3.33333H9.16667V7.5H7.5V8.33333H9.16667V10.8333H10V3.33333H15.4167C15.7482 3.33333 16.0661 3.46503 16.3005 3.69945C16.535 3.93387 16.6667 4.25181 16.6667 4.58333V10H11.6667V10.8333H16.6667V15.4167C16.6667 15.7482 16.535 16.0661 16.3005 16.3005C16.0661 16.535 15.7482 16.6667 15.4167 16.6667H13.2883V17.5H15.4167C15.9692 17.5 16.4991 17.2805 16.8898 16.8898C17.2805 16.4991 17.5 15.9692 17.5 15.4167V4.58333C17.5 4.0308 17.2805 3.50089 16.8898 3.11019C16.4991 2.71949 15.9692 2.5 15.4167 2.5Z" fill="#8a8fb0" stroke="#8a8fb0" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round"/></svg></div>'+
     '<div style="flex:1;min-width:0">'+
       '<div style="font-size:16px;font-weight:700;line-height:22px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(z.name)+'</div>'+
       '<div style="font-size:13px;line-height:18px;color:var(--base-content);opacity:.7;margin-top:4px;display:flex;gap:12px;flex-wrap:nowrap;white-space:nowrap;align-items:baseline"><span>Пол: '+(z.floor||"0")+' м<sup>2</sup></span><span>Стены: '+(z.walls||"0")+' м<sup>2</sup></span><span>Высота: '+(z.height||"0")+' м</span></div>'+
     '</div>'+
     '<div style="display:flex;align-items:center;gap:4px;flex-shrink:0">'+
+      '<button class="irow-act" onclick="previewCrZamer('+i+')" title="Предпросмотр" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:8px;color:var(--accent);font-size:14px;font-weight:600;white-space:nowrap">'+PV_EYE+'Предпросмотр</button>'+
       '<button class="irow-act" onclick="editCrZamer('+i+')" title="Редактировать" style="width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--accent)">'+iA("pencilSq",18,18)+'</button>'+
       '<button class="irow-act" onclick="deleteCrZamer('+i+')" title="Удалить" style="width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--error)">'+'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"></path></svg>'+'</button>'+
     '</div>'+
@@ -2077,8 +2083,46 @@ function zamerRowHTML(z,i){
 }
 function renderCrZamers(){ var e=document.getElementById("cr-zamer-empty"),f=document.getElementById("cr-zamer-filled"),l=document.getElementById("cr-zamers-list"); if(!e||!f||!l)return; if(!crZamers.length){ e.style.display="block"; f.style.display="none"; l.innerHTML=""; return; } e.style.display="none"; f.style.display="block"; l.innerHTML=crZamers.map(zamerRowHTML).join(""); }
 function deleteCrZamer(i){ crZamers.splice(i,1); renderCrZamers(); notify("Замер удалён"); }
+
+/* ── Предпросмотр сметы/замера (страница создания) ── */
+var PV_EYE='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.64 0 8.577 3.01 9.964 7.183.07.207.07.43 0 .638C20.577 16.49 16.64 19.5 12 19.5c-4.64 0-8.577-3.01-9.964-7.178Z"/><circle cx="12" cy="12" r="3"/></svg>';
+function openPreview(title, bodyHTML){
+  var t=document.getElementById('preview-title'); if(t) t.textContent=title;
+  var b=document.getElementById('preview-body'); if(b) b.innerHTML=bodyHTML;
+  var ov=document.getElementById('preview-overlay'); if(ov) ov.style.display='flex';
+}
+function closePreview(){ var ov=document.getElementById('preview-overlay'); if(ov) ov.style.display='none'; }
+function pvPair(label,value){ return '<div style="display:grid;grid-template-columns:160px auto;gap:10px;align-items:start"><span style="font-size:14px;line-height:18px;color:var(--base-content)">'+label+'</span><span style="font-size:14px;line-height:18px;font-weight:700;color:var(--ink)">'+value+'</span></div>'; }
+function previewCrZamer(i){
+  var z=crZamers[i]; if(!z) return;
+  var body='<div style="font-size:20px;font-weight:700;line-height:28px;color:var(--ink);margin-bottom:16px">'+esc(z.name)+'</div>'+
+    '<div style="display:inline-flex;align-items:center;gap:8px;background:var(--base200);border-radius:8px;padding:7px 12px;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:16px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 8.25A1.5 1.5 0 0 1 6 6.75h12a1.5 1.5 0 0 1 1.5 1.5v7.5A1.5 1.5 0 0 1 18 17.25H6a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M8.25 6.75v3M12 6.75v4M15.75 6.75v3"/></svg><span>Основное</span></div>'+
+    '<div style="display:flex;flex-direction:column;gap:14px">'+
+      pvPair('Площадь пола', (z.floor||'0')+' м<sup>2</sup>')+
+      pvPair('Площадь стен', (z.walls||'0')+' м<sup>2</sup>')+
+      pvPair('Высота помещения', (z.height||'0')+' м')+
+    '</div>';
+  openPreview('Предпросмотр замера', body);
+}
+function previewCreatorSmeta(btn){
+  var row=btn.closest('.cr-smeta-row'); if(!row) return;
+  var name=row.dataset.name||'Смета';
+  var m=row.dataset.method; var method=(m==='template')?'Из шаблона':(m==='file')?'Из файла':'Вручную';
+  var body='<div style="font-size:20px;font-weight:700;line-height:28px;color:var(--ink);margin-bottom:10px">'+esc(name)+'</div>'+
+    '<span style="display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:30px;border:1px solid var(--base300);background:#fff;font-size:14px;line-height:24px;color:var(--base-content)">'+method+'</span>'+
+    '<div style="margin-top:20px;display:flex;flex-direction:column;gap:10px">'+
+      '<div style="display:flex;justify-content:space-between;font-size:14px;color:var(--base-content)"><span>Работы</span><span>0,00 ₽</span></div>'+
+      '<div style="display:flex;justify-content:space-between;font-size:14px;color:var(--base-content)"><span>Материалы</span><span>0,00 ₽</span></div>'+
+      '<div style="display:flex;justify-content:space-between;font-size:14px;color:var(--base-content)"><span>Прочее</span><span>0,00 ₽</span></div>'+
+      '<div style="height:1px;background:var(--base300);margin:4px 0"></div>'+
+      '<div style="display:flex;justify-content:space-between;font-size:16px;font-weight:700;color:var(--ink)"><span>Итого</span><span>0,00 ₽</span></div>'+
+    '</div>'+
+    '<div style="margin-top:16px;font-size:13px;line-height:18px;color:var(--base-content);opacity:.8">Смета создаётся пустой. Позиции — работы, материалы и прочее — можно добавить после создания объекта.</div>';
+  openPreview('Предпросмотр сметы', body);
+}
+
 function editCrZamer(i){ var z=crZamers[i]; if(!z)return; zamerEditIdx=i; var tt=document.getElementById("zamer-title"); if(tt)tt.textContent="Редактирование замера"; document.getElementById("zamer-overlay").classList.add("on"); document.getElementById("zamer-drawer").classList.add("on"); selectZamerOpt("own"); var n=document.getElementById("zamer-name"); if(n)n.value=z.name; showZamerStep(2); setZamerField("Площадь пола",z.floor); setZamerField("Площадь стен",z.walls); setZamerField("Высота помещения",z.height); var sv=document.getElementById("zamer-save-btn"); if(sv)sv.textContent="Сохранить"; }
-function zamerSave(){ if(zamerTargetObjId){ var _o=objects.find(function(x){return x.id===zamerTargetObjId;}); var _room=getZamerAll(); if(_o){ _o.userRooms=(_o.userRooms||[]); _o.userRooms.push(_room); } zamerTargetObjId=null; closeZamerDrawer(); if(_o && currentObj && _o.id===currentObj.id){ var _e=document.getElementById("so-rooms-empty"),_w=document.getElementById("so-rooms-wrap"); if(_e)_e.style.display="none"; if(_w)_w.style.display="grid"; renderRoomsNav(); selectRoom(roomsFor(_o).length-1); } notify("Замер добавлен"); return; } var isEdit=(zamerEditIdx!=null && crZamers[zamerEditIdx]); var z={name:(document.getElementById("zamer-name").value.trim()||"Помещение"),floor:getZamerField("Площадь пола"),walls:getZamerField("Площадь стен"),height:getZamerField("Высота помещения")}; if(isEdit){ crZamers[zamerEditIdx]=z; } else { crZamers.push(z); } zamerEditIdx=null; closeZamerDrawer(); renderCrZamers(); notify(isEdit?"Замер сохранён":"Замер добавлен"); }
+function zamerSave(){ if(zamerTargetObjId){ var _o=objects.find(function(x){return x.id===zamerTargetObjId;}); var _room=getZamerAll(); if(_o){ _o.userRooms=(_o.userRooms||[]); _o.userRooms.push(_room); } zamerTargetObjId=null; closeZamerDrawer(); if(_o && currentObj && _o.id===currentObj.id){ var _e=document.getElementById("so-rooms-empty"),_w=document.getElementById("so-rooms-wrap"); if(_e)_e.style.display="none"; if(_w)_w.style.display="grid"; renderRoomsNav(); selectRoom(roomsFor(_o).length-1); } notify("Замер добавлен"); return; } var isEdit=(zamerEditIdx!=null && crZamers[zamerEditIdx]); var z={name:(document.getElementById("zamer-name").value.trim()||"Помещение"),floor:getZamerField("Площадь пола"),walls:getZamerField("Площадь стен"),height:getZamerField("Высота помещения")}; if(isEdit){ crZamers[zamerEditIdx]=z; } else { crZamers.push(z); } zamerEditIdx=null; closeZamerDrawer(); renderCrZamers(); notify(isEdit?"Замер сохранён":"Замер добавлен в объект — будет создан вместе с ним."); }
 /* ── drawer radio logic ── */
 let drawerOpt = 'manual';
 let drawerTargetObjId = null;
@@ -2244,6 +2288,7 @@ function submitDrawer(){
           <span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:30px;border:1px solid var(--base300);background:#fff;font-size:14px;line-height:20px;color:var(--base-content);width:fit-content">${opt}</span>
         </div>
         <div style="display:flex;align-items:center;gap:4px">
+          <button class="irow-act" title="Предпросмотр" onclick="previewCreatorSmeta(this)" style="display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 10px;border-radius:8px;color:var(--accent);font-size:14px;font-weight:600;white-space:nowrap">${PV_EYE}Предпросмотр</button>
           <button class="irow-act" title="Редактировать" onclick="editCreatorSmeta(this)" style="width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--accent)">${iA("pencilSq",18,18)}</button>
           <button class="irow-act" title="Удалить" onclick="removeCreatorSmeta(this)" style="width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--error)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/></svg></button>
         </div>
@@ -2258,6 +2303,7 @@ function submitDrawer(){
       list.appendChild(row);
       document.getElementById('cr-smeta-empty').style.display='none';
       document.getElementById('cr-smeta-filled').style.display='block';
+      notify('Смета добавлена в объект — будет создана вместе с ним.');
     }
     document.getElementById('drawer-smeta-name').value='Смета '+String(document.querySelectorAll('.cr-smeta-row').length+1).padStart(2,'0');
   } else {
@@ -2311,6 +2357,9 @@ function openDrawerForCreate(){
 }
 
 /* ── creation screen ── */
+function updateCrFooter(){ var scr=document.getElementById('screen-create'); var f=document.getElementById('cr-footer'); if(!scr||!f) return; f.classList.toggle('stuck', (scr.scrollHeight - scr.clientHeight) > 1); }
+window.addEventListener('resize', updateCrFooter);
+(function(){ var c=document.getElementById('cr-content'); if(c && window.ResizeObserver){ try{ new ResizeObserver(function(){ updateCrFooter(); }).observe(c); }catch(e){} } })();
 function openConstructor(){
   const num=String(objects.filter(o=>o.id!==1).length+1).padStart(2,'0');
   document.getElementById('cr-obj-name').value='Объект '+num;
@@ -2332,6 +2381,7 @@ function openConstructor(){
   hideAllScreens();
   document.getElementById('screen-create').style.display='block';
   document.getElementById('screen-create').scrollTop=0;
+  updateCrFooter(); requestAnimationFrame(updateCrFooter);
 }
 
 function populateExistSelect(){
